@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/api/auth.service';
 import * as THREE from 'three';
 
 @Component({
@@ -11,12 +12,26 @@ export class ThreeDashboardComponent implements OnInit {
   camera: THREE.PerspectiveCamera;
   renderer: THREE.WebGLRenderer;
   cube: THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial>;
+  raycaster = new THREE.Raycaster();
+  mouse = new THREE.Vector2();
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.initializeRenderer();
     this.addBox();
     this.addLight();
     this.animate();
+    this.authService
+      .login({ password: 'test401', email: 'test401@gmail.com' })
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
   }
 
   initializeRenderer(): void {
@@ -36,6 +51,7 @@ export class ThreeDashboardComponent implements OnInit {
 
     document.body.appendChild(this.renderer.domElement);
     window.addEventListener('resize', () => this.onWindowResize(), false);
+    window.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
   }
 
   addBox(): void {
@@ -65,9 +81,30 @@ export class ThreeDashboardComponent implements OnInit {
     requestAnimationFrame(() => {
       this.animate();
     });
-    this.cube.rotation.x += 0.005;
-    this.cube.rotation.y += 0.005;
+    // this.cube.rotation.x += 0.005;
+    // this.cube.rotation.y += 0.005;
+
+    this.rotateObject();
+
     this.renderer.render(this.scene, this.camera);
+  }
+
+  rotateObject() {
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+    const intersects = this.raycaster.intersectObjects(
+      this.scene.children,
+      true
+    );
+    for (let i = 0; i < intersects.length; i++) {
+      intersects[i].object.rotation.y += this.mouse.y / 10;
+      intersects[i].object.rotation.x += this.mouse.y / 10;
+    }
+  }
+
+  onMouseMove(event) {
+    console.log(this.mouse);
+    this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   }
 
   onWindowResize() {
