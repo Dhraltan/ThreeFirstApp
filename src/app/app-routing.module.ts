@@ -9,6 +9,13 @@ const routes: Routes = [
         (module) => module.ThreeDashboardModule
       ),
   },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./features/auth/auth.module').then(
+        (module) => module.AuthModule
+      ),
+  },
 ];
 
 @NgModule({
