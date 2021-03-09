@@ -3,9 +3,9 @@ import { AuthService } from 'src/app/core/api/auth.service';
 import * as THREE from 'three';
 
 @Component({
-  selector: 'app-three-dashboard',
-  templateUrl: './three-dashboard.component.html',
-  styleUrls: ['./three-dashboard.component.scss'],
+  selector: 'app-three-dashboard-component',
+  templateUrl: './three-dashboard-component.component.html',
+  styleUrls: ['./three-dashboard-component.component.scss'],
 })
 export class ThreeDashboardComponent implements OnInit {
   scene: THREE.Scene;
@@ -14,24 +14,15 @@ export class ThreeDashboardComponent implements OnInit {
   cube: THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial>;
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
+  canvas: HTMLCanvasElement;
 
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
   ngOnInit() {
     this.initializeRenderer();
     this.addBox();
     this.addLight();
     this.animate();
-    this.authService
-      .login({ password: 'test401', email: 'test401@gmail.com' })
-      .subscribe(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.error(err);
-        }
-      );
   }
 
   initializeRenderer(): void {
@@ -45,11 +36,17 @@ export class ThreeDashboardComponent implements OnInit {
     );
     this.camera.position.z = 4;
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.canvas = document.getElementById(
+      'web-gl-renderer'
+    ) as HTMLCanvasElement;
+
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      canvas: this.canvas,
+    });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setClearColor('#e5e5e5');
 
-    document.body.appendChild(this.renderer.domElement);
     window.addEventListener('resize', () => this.onWindowResize(), false);
     window.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
   }

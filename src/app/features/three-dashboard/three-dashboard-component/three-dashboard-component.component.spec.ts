@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreeDashboardComponent } from './three-dashboard.component';
+import { ThreeDashboardComponent } from './three-dashboard-component.component';
 
 describe('ThreeDashboardComponent', () => {
   let component: ThreeDashboardComponent;

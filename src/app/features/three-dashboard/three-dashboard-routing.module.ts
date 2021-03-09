@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ThreeDashboardComponent } from './three-dashboard.component';
+import { ThreeDashboardComponent } from './three-dashboard-component/three-dashboard-component.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ThreeDashboardComponent
-  }
+    component: ThreeDashboardComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ThreeDashboardRoutingModule { }
+export class ThreeDashboardRoutingModule {}
