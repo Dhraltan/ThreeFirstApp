@@ -7,6 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzInputModule,
     NzButtonModule,
     NzCheckboxModule,
-    NzGridModule
+    NzGridModule,
+    NzIconModule
   ],
   exports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzInputModule,
     NzButtonModule,
     NzCheckboxModule,
-    NzGridModule
+    NzGridModule,
+    NzIconModule
   ],
 })
 export class SharedModule {}

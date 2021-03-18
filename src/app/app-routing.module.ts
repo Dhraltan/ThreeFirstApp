@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,13 +9,15 @@ const routes: Routes = [
       import('./features/three-dashboard/three-dashboard.module').then(
         (module) => module.ThreeDashboardModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth',
     loadChildren: () =>
-      import('./features/auth/auth.module').then(
-        (module) => module.AuthModule
-      ),
+      import('./features/auth/auth.module').then((module) => module.AuthModule),
+  },
+  {
+    path: '', redirectTo: 'three', pathMatch: 'full' 
   },
 ];
 
