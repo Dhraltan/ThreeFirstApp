@@ -5,24 +5,34 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    NzFormModule,
     FormsModule,
     ReactiveFormsModule,
+
+    // NG Zorro
+    NzFormModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzCheckboxModule,
+    NzGridModule
   ],
   exports: [
     CommonModule,
-    NzFormModule,
     FormsModule,
     ReactiveFormsModule,
+
+    // NG Zorro
+    NzFormModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzCheckboxModule,
+    NzGridModule
   ],
 })
 export class SharedModule {}

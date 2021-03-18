@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'three',
     loadChildren: () =>
       import('./features/three-dashboard/three-dashboard.module').then(
         (module) => module.ThreeDashboardModule
