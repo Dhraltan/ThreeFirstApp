@@ -1,41 +1,37 @@
-#login-icon-container{
+#login-icon-container {
   text-align: center;
   margin-top: 1rem;
   color: #0071b8;
-  #login-icon{
+
+  #login-icon {
+    background: #ebebff;
+    border-radius: 30px;
+    padding: 1rem;
     font-size: 5rem;
   }
 }
 
-
 .login-form {
-    max-width: 400px;
-    margin: 1rem auto;
-  }
+  max-width: 400px;
+  margin: 1rem auto;
+}
 
-  .login-form-margin {
-    margin-bottom: 16px;
-  }
+label {
+  font-size: 16px;
+}
 
-  .login-form-button {
-    width: 100%;
-  }
+input {
+  margin-top: 0.5rem;
+}
 
-  label{
-    font-size: 16px;
-  }
+#login-btn {
+  margin-bottom: 16px;
+  width: 100%;
+  background-color: #0cac64 !important;
+  border-color: #0cac64 !important;
 
-  input{
-    margin-top: 0.5rem;
-  }
-
-  .login-btn{
-    background-color: #0cac64 !important;
-    border-color: #0cac64 !important;
-    &:hover{
-    
+  &:hover {
     background-color: #0dbf6f !important;
     border-color: #0dbf6f !important;
   }
-  }
-  
+}

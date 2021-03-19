@@ -31,16 +31,22 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls[i].updateValueAndValidity();
     }
 
-    this.authService.login(this.loginForm.getRawValue()).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.error(error);
-      },
-      () => {
-        this.router.navigate([URLS.HOMEPAGE]);
-      }
-    );
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.getRawValue()).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          this.router.navigate([URLS.HOMEPAGE]);
+        }
+      );
+    }
+  }
+
+  redirectToRegister(): void {
+    this.router.navigate([URLS.REGISTER]);
   }
 }

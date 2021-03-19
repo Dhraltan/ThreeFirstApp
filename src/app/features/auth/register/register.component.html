@@ -1,1 +1,78 @@
-<p>register works!</p>
+<div id="register-icon-container"><i nz-icon nzType="user-add" nzTheme="outline" id="register-icon"></i>
+</div>
+<form
+  nz-form
+  [formGroup]="registerForm"
+  (ngSubmit)="submitForm()"
+  id="register-form"
+>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your first name!">
+      <label>First name</label>
+      <input
+        nz-input
+        nzSize="large"
+        id="firstName"
+        formControlName="firstName"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your last name!">
+      <label>Last name</label>
+      <input nz-input nzSize="large" id="lastName" formControlName="lastName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="The input is not valid E-mail!">
+      <label>E-mail</label>
+      <input nz-input nzSize="large" formControlName="email" id="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your password!">
+      <label>Password</label>
+      <input
+        nz-input
+        type="password"
+        id="password"
+        nzSize="large"
+        formControlName="password"
+        (ngModelChange)="updateConfirmValidator()"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="errorTpl">
+      <label>Confirm Password</label>
+      <input
+        nz-input
+        type="password"
+        nzSize="large"
+        formControlName="checkPassword"
+        id="checkPassword"
+      />
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please confirm your password!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('confirm')">
+          Two passwords that you enter is inconsistent!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control>
+      <button nz-button nzType="primary" nzSize="large" id="register-btn">
+        Register
+      </button>
+      Aready have an account <a (click)="redirectToLogin()"> log in! </a>
+    </nz-form-control>
+  </nz-form-item>
+</form>
