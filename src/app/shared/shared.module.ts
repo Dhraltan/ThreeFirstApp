@@ -8,9 +8,11 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { HeaderComponent } from './components/header/header.component';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 @NgModule({
-  declarations: [],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -22,12 +24,15 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzButtonModule,
     NzCheckboxModule,
     NzGridModule,
-    NzIconModule
+    NzIconModule,
+    NzMenuModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+
+    HeaderComponent,
 
     // NG Zorro
     NzFormModule,
@@ -35,7 +40,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzButtonModule,
     NzCheckboxModule,
     NzGridModule,
-    NzIconModule
+    NzIconModule,
+    NzMenuModule
   ],
 })
 export class SharedModule {}

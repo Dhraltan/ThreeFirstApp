@@ -36,4 +36,16 @@ export class AuthService {
       })
     );
   }
+
+  logOut(): Observable<void> {
+    return this.apiService.get(`${this.resourceUrl}/logout`).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log(err)
+        return throwError({
+          status: err.status,
+          message: InternalError.A_002,
+        });
+      })
+    );
+  }
 }
