@@ -1,4 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    margin: 0;
+body {
+  margin: 0;
+}
+
+.success-notification {
+  background-color: #0b9959;
+  color: #fafaff;
+
+  i {
+    color: #fafaff !important;
+  }
+
+  .ant-notification-notice-with-icon .ant-notification-notice-message {
+    color: #fafaff;
+    font-weight: bold;
+  }
+}
+
+.error-notification {
+  background-color: #d0253c;
+  color: #fafaff;
+
+  i {
+    color: #fafaff !important;
+  }
+
+  .ant-notification-notice-with-icon .ant-notification-notice-message {
+    color: #fafaff;
+    font-weight: bold;
+  }
 }

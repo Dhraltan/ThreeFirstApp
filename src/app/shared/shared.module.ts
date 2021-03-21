@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// NG Zorro
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -10,6 +11,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HeaderComponent } from './components/header/header.component';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -25,7 +27,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     NzCheckboxModule,
     NzGridModule,
     NzIconModule,
-    NzMenuModule
+    NzMenuModule,
+    NzNotificationModule
   ],
   exports: [
     CommonModule,
@@ -41,7 +44,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     NzCheckboxModule,
     NzGridModule,
     NzIconModule,
-    NzMenuModule
+    NzMenuModule,
+    NzNotificationModule
   ],
 })
 export class SharedModule {}

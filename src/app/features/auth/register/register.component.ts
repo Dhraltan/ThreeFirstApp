@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/core/api';
 import { URLS } from '@app/shared/enum';
 import { RegisterPayload } from '@app/shared/interfaces';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -43,10 +45,17 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.register(this.mapPayload()).subscribe(
         (res) => {
-          console.log(res);
+          this.notification.success(
+            'Success',
+            'Account was successfully created',
+            { nzClass: 'success-notification' }
+          );
         },
         (error) => {
           console.error(error);
+          this.notification.error('Failed', error.message, {
+            nzClass: 'error-notification',
+          });
         },
         () => {
           this.router.navigate([URLS.LOGIN]);
@@ -55,14 +64,14 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  mapPayload(): RegisterPayload{
-    const registerPayload ={
-      lastName: this.registerForm.get("lastName").value,
-      email: this.registerForm.get("email").value,
-      firstName: this.registerForm.get("firstName").value,
-      password: this.registerForm.get("password").value
-    }
-    return registerPayload
+  mapPayload(): RegisterPayload {
+    const registerPayload = {
+      lastName: this.registerForm.get('lastName').value,
+      email: this.registerForm.get('email').value,
+      firstName: this.registerForm.get('firstName').value,
+      password: this.registerForm.get('password').value,
+    };
+    return registerPayload;
   }
 
   updateConfirmValidator(): void {
