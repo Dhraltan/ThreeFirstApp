@@ -1,0 +1,19 @@
+<div *ngIf="control.dirty">
+  <div *ngIf="control.hasError('required'); else noRequired">
+    <div *ngFor="let vm of validationMessages[controlName]">
+      <div *ngIf="vm.type=='required'" class="text-red">
+        {{vm.message}}.
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noRequired>
+  <div *ngIf="control.dirty">
+    <div class="from-group" *ngFor="let vm of validationMessages[controlName]">
+      <div *ngIf="control.hasError(vm.type)" class="text-red">
+        {{vm.message}}
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/api';
+import { CustomValidators } from '@app/core/helpers/custom-validators.helper';
 import { URLS } from '@app/shared/enum';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -23,8 +23,22 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(100),
+          Validators.minLength(4),
+        ],
+      ],
+      password: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(8),
+        ],
+      ],
     });
   }
 

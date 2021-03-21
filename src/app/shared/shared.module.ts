@@ -12,9 +12,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HeaderComponent } from './components/header/header.component';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, ValidationMessageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -36,6 +37,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     ReactiveFormsModule,
 
     HeaderComponent,
+    ValidationMessageComponent,
 
     // NG Zorro
     NzFormModule,

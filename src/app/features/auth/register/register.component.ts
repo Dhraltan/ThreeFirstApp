@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/api';
+import { CustomValidators } from '@app/core/helpers/custom-validators.helper';
 import { URLS } from '@app/shared/enum';
 import { RegisterPayload } from '@app/shared/interfaces';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -27,13 +27,30 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      firstName: [null, [Validators.required]],
-      lastName: [null, [Validators.required]],
-    });
+    this.registerForm = this.fb.group(
+      {
+        email: [null, [Validators.email, Validators.required]],
+        password: [
+          null,
+          [
+            Validators.required,
+            Validators.minLength(8),
+            CustomValidators.password,
+          ],
+        ],
+        checkPassword: [
+          null,
+          [
+            Validators.required,
+            Validators.minLength(8),
+            CustomValidators.password,
+          ],
+        ],
+        firstName: [null, [Validators.required, CustomValidators.names]],
+        lastName: [null, [Validators.required, CustomValidators.names]],
+      },
+      { validators: CustomValidators.passwordMatchValidator }
+    );
   }
 
   submitForm(): void {
@@ -73,22 +90,6 @@ export class RegisterComponent implements OnInit {
     };
     return registerPayload;
   }
-
-  updateConfirmValidator(): void {
-    /** wait for refresh value */
-    Promise.resolve().then(() =>
-      this.registerForm.controls.checkPassword.updateValueAndValidity()
-    );
-  }
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else if (control.value !== this.registerForm.controls.password.value) {
-      return { confirm: true, error: true };
-    }
-    return {};
-  };
 
   redirectToLogin(): void {
     this.router.navigate([URLS.LOGIN]);

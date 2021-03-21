@@ -9,8 +9,12 @@
   (ngSubmit)="submitForm()"
 >
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your username!">
+    <nz-form-control>
       <label>Email</label>
+      <app-validation-message
+        [controlName]="'email'"
+        [control]="loginForm.controls['email']"
+      ></app-validation-message>
       <input
         nz-input
         type="text"
@@ -20,9 +24,14 @@
       />
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your Password!">
+    <nz-form-control>
       <label>Password</label>
+      <app-validation-message
+        [controlName]="'password'"
+        [control]="loginForm.controls['password']"
+      ></app-validation-message>
       <input
         nz-input
         type="password"
@@ -32,12 +41,7 @@
       />
     </nz-form-control>
   </nz-form-item>
-  <button
-    nz-button
-    id="login-btn"
-    nzSize="large"
-    [nzType]="'primary'"
-  >
+  <button nz-button id="login-btn" nzSize="large" [nzType]="'primary'">
     Log in
   </button>
   Or <a (click)="redirectToRegister()"> register now! </a>

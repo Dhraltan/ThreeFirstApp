@@ -1,4 +1,5 @@
-<div id="register-icon-container"><i nz-icon nzType="user-add" nzTheme="outline" id="register-icon"></i>
+<div id="register-icon-container">
+  <i nz-icon nzType="user-add" nzTheme="outline" id="register-icon"></i>
 </div>
 <form
   nz-form
@@ -7,8 +8,12 @@
   id="register-form"
 >
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your first name!">
+    <nz-form-control>
       <label>First name</label>
+      <app-validation-message
+        [controlName]="'firstName'"
+        [control]="registerForm.controls['firstName']"
+      ></app-validation-message>
       <input
         nz-input
         nzSize="large"
@@ -19,36 +24,51 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your last name!">
+    <nz-form-control>
       <label>Last name</label>
+      <app-validation-message
+        [controlName]="'lastName'"
+        [control]="registerForm.controls['lastName']"
+      ></app-validation-message>
       <input nz-input nzSize="large" id="lastName" formControlName="lastName" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control nzErrorTip="The input is not valid E-mail!">
+    <nz-form-control>
       <label>E-mail</label>
+      <app-validation-message
+        [controlName]="'email'"
+        [control]="registerForm.controls['email']"
+      ></app-validation-message>
       <input nz-input nzSize="large" formControlName="email" id="email" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your password!">
+    <nz-form-control>
       <label>Password</label>
+      <app-validation-message
+        [controlName]="'password'"
+        [control]="registerForm.controls['password']"
+      ></app-validation-message>
       <input
         nz-input
         type="password"
         id="password"
         nzSize="large"
         formControlName="password"
-        (ngModelChange)="updateConfirmValidator()"
       />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control [nzErrorTip]="errorTpl">
+    <nz-form-control>
       <label>Confirm Password</label>
+      <app-validation-message
+        [controlName]="'checkPassword'"
+        [control]="registerForm.controls['checkPassword']"
+      ></app-validation-message>
       <input
         nz-input
         type="password"
@@ -56,14 +76,6 @@
         formControlName="checkPassword"
         id="checkPassword"
       />
-      <ng-template #errorTpl let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Please confirm your password!
-        </ng-container>
-        <ng-container *ngIf="control.hasError('confirm')">
-          Two passwords that you enter is inconsistent!
-        </ng-container>
-      </ng-template>
     </nz-form-control>
   </nz-form-item>
 
