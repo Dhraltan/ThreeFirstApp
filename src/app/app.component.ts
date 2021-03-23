@@ -10,7 +10,7 @@ import { URLS } from './shared/enum';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  loading = false;
+  loading = true;
 
   constructor(
     private userService: UserService,
@@ -26,9 +26,11 @@ export class AppComponent implements OnInit {
     await this.userService
       .getUserDetails()
       .then((user) => {
+        this.loading = false
         this.accountService.setUser(user);
       })
       .catch((err) => {
+        this.loading = false
         this.accountService.setUser(null);
         this.router.navigate([URLS.LOGIN]);
       });

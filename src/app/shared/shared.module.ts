@@ -9,13 +9,19 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { HeaderComponent } from './components/header/header.component';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+
+import { HeaderComponent } from './components/header/header.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
+import { LoadingGifComponent } from './components/loading-gif/loading-gif.component';
 
 @NgModule({
-  declarations: [HeaderComponent, ValidationMessageComponent],
+  declarations: [
+    HeaderComponent,
+    ValidationMessageComponent,
+    LoadingGifComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,7 +35,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     NzGridModule,
     NzIconModule,
     NzMenuModule,
-    NzNotificationModule
+    NzNotificationModule,
   ],
   exports: [
     CommonModule,
@@ -38,6 +44,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
 
     HeaderComponent,
     ValidationMessageComponent,
+    LoadingGifComponent,
 
     // NG Zorro
     NzFormModule,
@@ -47,7 +54,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
     NzGridModule,
     NzIconModule,
     NzMenuModule,
-    NzNotificationModule
+    NzNotificationModule,
   ],
 })
 export class SharedModule {}

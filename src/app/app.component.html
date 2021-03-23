@@ -12,6 +12,8 @@
         </nz-breadcrumb>
         <nz-content>
           <router-outlet *ngIf="!loading"></router-outlet>
+
+          <app-loading-gif *ngIf="loading"></app-loading-gif>
         </nz-content>
       </nz-layout>
     </nz-layout>
