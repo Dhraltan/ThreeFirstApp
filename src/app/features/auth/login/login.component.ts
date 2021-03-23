@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/api';
-import { CustomValidators } from '@app/core/helpers/custom-validators.helper';
+import { AccountService } from '@app/core/services/account.service';
 import { URLS } from '@app/shared/enum';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -32,13 +33,7 @@ export class LoginComponent implements OnInit {
           Validators.minLength(4),
         ],
       ],
-      password: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(8),
-        ],
-      ],
+      password: [null, [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -51,10 +46,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.getRawValue()).subscribe(
         (res) => {
+          this.accountService.setUser(res);
           this.router.navigate([URLS.HOMEPAGE]);
         },
         (error) => {
           console.error(error);
+          this.accountService.setUser(null);
           this.notification.error('Failed', error.message, {
             nzClass: 'error-notification',
           });

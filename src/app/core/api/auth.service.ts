@@ -26,7 +26,7 @@ export class AuthService {
     );
   }
 
-  register(userData: RegisterPayload): Observable<UserDTO> {
+  register(userData: RegisterPayload): Observable<void> {
     return this.apiService.post(`${this.resourceUrl}/register`, userData).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError({

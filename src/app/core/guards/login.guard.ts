@@ -11,7 +11,7 @@ import { AccountService } from '../services/account.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
   constructor(private accountService: AccountService) {}
 
   canActivate(
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.accountService.getUser()) return true;
+    if (!this.accountService.getUser()) return true;
     return false;
   }
 }
