@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
+import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 
 @Component({
   selector: 'app-three-dashboard-component',
