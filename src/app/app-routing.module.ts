@@ -4,6 +4,17 @@ import { AuthGuard, LoginGuard } from './core/guards';
 
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () =>
+      import('./features/auth/auth.module').then((module) => module.AuthModule),
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./features/home/home.module').then((module) => module.HomeModule),
+  },
+  {
     path: 'three',
     loadChildren: () =>
       import('./features/three-dashboard/three-dashboard.module').then(
@@ -12,13 +23,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'auth',
+    path: 'contact',
     loadChildren: () =>
-      import('./features/auth/auth.module').then((module) => module.AuthModule),
-      canActivate: [LoginGuard]
+      import('./features/contact/contact.module').then(
+        (module) => module.ContactModule
+      )
   },
   {
-    path: '', redirectTo: 'three', pathMatch: 'full' 
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
 ];
 

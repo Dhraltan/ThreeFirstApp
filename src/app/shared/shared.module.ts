@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // NG Zorro
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -26,6 +27,7 @@ import { LoadingGifComponent } from './components/loading-gif/loading-gif.compon
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
 
     // NG Zorro
     NzFormModule,
@@ -41,6 +43,7 @@ import { LoadingGifComponent } from './components/loading-gif/loading-gif.compon
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
 
     HeaderComponent,
     ValidationMessageComponent,

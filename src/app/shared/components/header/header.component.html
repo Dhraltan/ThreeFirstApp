@@ -1,10 +1,23 @@
-<div class="logo"></div>
-<a *ngIf="currentUser" (click)="logOut()" id="log-out-btn">
-  Log out
-</a>
+<div class="logo">
+  <img src="assets/images/logo-alb.png" alt="" />
+</div>
+<a *ngIf="currentUser" (click)="logOut()" id="log-out-btn"> Log out </a>
 
 <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-  <li nz-menu-item nzSelected>nav 1</li>
-  <li nz-menu-item>nav 2</li>
-  <li nz-menu-item>nav 3</li>
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="['/', 'home']"><i nz-icon nzType="home" nzTheme="outline"></i>Home</a>
+  </li>
+
+  <li nz-submenu nzTitle="3D Representation" nzIcon="caret-down" [nzDisabled]="currentUser ? false : true">
+    <ul>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/', 'three', 'ply']">PLY</a>
+      </li>
+      <li nz-menu-item><a [routerLink]="['/', 'three']">Cube</a></li>
+    </ul>
+  </li>
+
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="['/', 'contact']"><i nz-icon nzType="mail" nzTheme="outline"></i>Contact</a>
+  </li>
 </ul>

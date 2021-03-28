@@ -1,11 +1,5 @@
-
-
 .inner-layout {
-  padding: 0 24px 24px;
-}
-
-nz-breadcrumb {
-  margin: 16px 0;
+  padding: 24px;
 }
 
 nz-content {
@@ -14,12 +8,20 @@ nz-content {
   min-height: 100%;
 }
 
+nz-header{
+  padding: 0 24px;
+}
+
 #sub-body{
     min-height: 100%;
 }
 
 @media only screen and (min-width: 1024px) {
   .inner-layout {
-    margin: 0 4rem;
+    padding: 24px 4rem;
+  }
+
+  nz-header{
+    padding: 0 4rem;
   }
 }
