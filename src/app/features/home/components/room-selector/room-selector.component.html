@@ -1,5 +1,32 @@
 <div id="room-selector-container">
-  <div class="marker nii3"></div>
-  <div class="marker nii1"></div>
-  <div class="marker ni5"></div>
+
+  <div nz-row class="row-overlay">
+    <div nz-col nzSpan="12" class="left-column">
+      <div id="title">Welcome to <br> Three View</div>
+    </div>
+    <div nz-col nzSpan="12" class="right-column">
+      
+    </div>
+  </div>
+
+  <div *ngFor="let marker of markers; let index = index">
+    <div
+      nz-popover
+      [(nzPopoverVisible)]="marker.isPopoverVisible"
+      [class]="marker.name + ' marker'"
+      [nzPopoverContent]="contentTemplate"
+      [nzPopoverTitle]="marker.name | uppercase"
+      nzPopoverTrigger="click"
+    ></div>
+    <ng-template #contentTemplate>
+      <a (click)="redirectTo3D(index)">Go to 3D visualization</a>
+    </ng-template>
+
+    <span
+      *ngIf="marker.isPopoverVisible"
+      [class]="marker.name + ' beacon'"
+    ></span>
+  </div>
 </div>
+
+
