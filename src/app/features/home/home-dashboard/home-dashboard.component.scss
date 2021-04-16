@@ -1,6 +1,17 @@
 #home-dashboard-container{
   width: 100%;
   height:  calc(100vh - 64px);
+  position: relative;
+}
+
+app-welcome-text{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+app-room-selector{
+  display: none;
 }
 
 @media only screen and (min-width: 1400px) {

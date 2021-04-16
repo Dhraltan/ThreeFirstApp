@@ -7,22 +7,9 @@
   border-radius: 5px;
 }
 
-.left-column{
+.overlay{
   height: 100%;
-  background: #001529;
   z-index: 3;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
-
-.right-column{
-  background-color: #fafaff;
-  z-index: 3;
-}
-
-.row-overlay{
-  height: 100%;
 }
 
 #title{
