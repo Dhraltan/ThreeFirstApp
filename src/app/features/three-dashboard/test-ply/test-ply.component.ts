@@ -10,10 +10,21 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
   styleUrls: ['./test-ply.component.scss']
 })
 export class TestPlyComponent implements OnInit {
+  canvas;
+
+  container;
 
   constructor() { }
 
   ngOnInit(): void {
+
+    
+    this.canvas = document.getElementById(
+      'web-gl-renderer'
+    ) as HTMLCanvasElement;
+    
+    this.container = document.getElementById('test-ply-container');
+
 
   const scene: THREE.Scene = new THREE.Scene()
 const axesHelper = new THREE.AxesHelper(5)
@@ -23,13 +34,15 @@ var light = new THREE.PointLight( 0xff0000, 1, 100 );
 light.position.set(500, 500, 500)
 scene.add(light);
 
-const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1500)
-camera.position.z = 40
+const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1500)
+camera.position.z = 500;
 
-const renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer()
+const renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer({
+  antialias: true,
+  canvas: this.canvas,
+});
 renderer.outputEncoding = THREE.sRGBEncoding
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
+renderer.setSize(this.container.clientWidth, this.container.clientHeight)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 
@@ -43,11 +56,13 @@ const material = new THREE.MeshPhysicalMaterial({
     roughness: 0.5,
     transparent: false,
     side: THREE.DoubleSide,
+    vertexColors: true
 });
 let mesh: THREE.Mesh
 
 var loader = new PLYLoader();
  	loader.load('assets/texture/bearded-guy-ply/Bearded guy.ply', function (geometry) {
+ 	// loader.load('assets/texture/ghiozdan/ghiozdan.ply', function (geometry) {
  	// loader.load('assets/texture/luci.ply', function (geometry) {
  
     geometry.computeVertexNormals();
@@ -57,11 +72,12 @@ var loader = new PLYLoader();
 
  	} );
 
+
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
+    camera.aspect = this.container.clientWidth / this.container.clientHeight
     camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(this.container.clientWidth, this.container.clientHeight)
     render()
 }
 

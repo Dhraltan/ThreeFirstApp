@@ -17,6 +17,8 @@ export class WelcomeTextComponent implements OnInit {
   canvas: HTMLCanvasElement;
   container: HTMLElement;
 
+  controls: OrbitControls;
+
   materials;
 
   constructor() {}
@@ -124,8 +126,8 @@ export class WelcomeTextComponent implements OnInit {
     );
     this.renderer.setClearColor('#e5e5e5');
 
-    const controls = new OrbitControls(this.camera, this.renderer.domElement);
-    controls.update();
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.update();
 
     window.addEventListener('resize', () => this.onWindowResize(), false);
   }
@@ -139,6 +141,7 @@ export class WelcomeTextComponent implements OnInit {
 
     this.renderer.clear();
     this.renderer.render(this.scene, this.camera);
+    this.controls.update();
   }
 
   onWindowResize() {
