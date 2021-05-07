@@ -1,4 +1,19 @@
 <div id="home-dashboard-container">
-  <app-welcome-text></app-welcome-text>
-  <app-room-selector></app-room-selector>
+  <div [ngClass]="showSelection === false ? 'fullHeight' : 'zeroHeight'">
+    <app-welcome-text></app-welcome-text>
+  </div>
+
+  <div [ngClass]="showSelection === true ? 'fullHeight' : 'zeroHeight'">
+    <app-room-selector [displayMarkers]="showSelection"></app-room-selector>
+  </div>
+
+  <button
+    nz-button
+    (click)="changeDisplay()"
+    nzType="primary"
+    nzShape="circle"
+    id="change-btn"
+  >
+    <i nz-icon [nzType]="showSelection === true ? 'down-circle' :'up-circle'"></i>
+  </button>
 </div>

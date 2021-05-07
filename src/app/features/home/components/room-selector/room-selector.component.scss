@@ -33,6 +33,13 @@
   -moz-box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
   box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
   z-index: 2;
+  opacity: 1;
+  transition: opacity 2s ease-out;
+}
+
+.hideMarkers{
+  transition: opacity 1s ease-out;
+  opacity: 0;
 }
 
 .nii3{

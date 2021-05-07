@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Marker } from '@app/shared/interfaces';
 
 @Component({
@@ -12,6 +12,8 @@ export class RoomSelectorComponent implements OnInit {
     { isPopoverVisible: false, name: 'nii1' },
     { isPopoverVisible: false, name: 'ni5' },
   ];
+
+  @Input() displayMarkers: boolean;
 
   constructor() {}
 

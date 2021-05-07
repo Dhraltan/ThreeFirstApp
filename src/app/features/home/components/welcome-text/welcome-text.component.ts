@@ -120,6 +120,8 @@ export class WelcomeTextComponent implements OnInit {
       antialias: true,
       canvas: this.canvas,
     });
+    console.log(this.container.clientHeight)
+    console.log(this.container.clientWidth)
     this.renderer.setSize(
       this.container.clientWidth,
       this.container.clientHeight
@@ -130,6 +132,7 @@ export class WelcomeTextComponent implements OnInit {
     this.controls.update();
 
     window.addEventListener('resize', () => this.onWindowResize(), false);
+
   }
 
   animate(): void {
@@ -142,6 +145,8 @@ export class WelcomeTextComponent implements OnInit {
     this.renderer.clear();
     this.renderer.render(this.scene, this.camera);
     this.controls.update();
+
+    this.onWindowResize()
   }
 
   onWindowResize() {

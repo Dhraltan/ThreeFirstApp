@@ -10,9 +10,42 @@ app-welcome-text{
   width: 100%;
 }
 
-app-room-selector{
-  display: none;
+.fullHeight{
+  height: 100%;
+  transition: all 2s;
 }
+
+.zeroHeight{
+  height: 0;
+  transition: all 2s;
+}
+
+
+#change-btn{
+  position: absolute;
+  bottom: 30px;
+  height: 50px;
+  width: 50px;
+  left: 50%;
+  right: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  i{
+    font-size: 200%;
+  }
+}
+
+// app-room-selector{
+//   height: 0;
+// }
+
+// app-welcome-text{
+//   ::ng-deep #welcome-text-container{
+//     // height: 0;
+//   }
+// }
 
 @media only screen and (min-width: 1400px) {
   #home-dashboard-container{

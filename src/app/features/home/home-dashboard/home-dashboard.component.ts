@@ -9,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   }
 })
 export class HomeDashboardComponent implements OnInit {
+  showSelection:boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeDisplay(){
+    this.showSelection = !this.showSelection
   }
 
 }

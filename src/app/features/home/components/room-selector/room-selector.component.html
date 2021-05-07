@@ -4,6 +4,7 @@
     <div
       nz-popover
       [(nzPopoverVisible)]="marker.isPopoverVisible"
+      [ngClass]="{'hideMarkers': displayMarkers === false}"
       [class]="marker.name + ' marker'"
       [nzPopoverContent]="contentTemplate"
       [nzPopoverTitle]="marker.name | uppercase"
