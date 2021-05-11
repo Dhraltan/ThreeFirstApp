@@ -31,21 +31,12 @@ app-welcome-text{
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #f0f2f5;
 
   i{
     font-size: 200%;
   }
 }
-
-// app-room-selector{
-//   height: 0;
-// }
-
-// app-welcome-text{
-//   ::ng-deep #welcome-text-container{
-//     // height: 0;
-//   }
-// }
 
 @media only screen and (min-width: 1400px) {
   #home-dashboard-container{

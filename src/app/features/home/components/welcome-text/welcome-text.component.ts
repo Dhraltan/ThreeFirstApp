@@ -11,7 +11,7 @@ export class WelcomeTextComponent implements OnInit {
   scene: THREE.Scene;
 
   camera: THREE.PerspectiveCamera;
-  cameraTarget;
+  cameraTarget: THREE.Vector3;
 
   renderer: THREE.WebGLRenderer;
   canvas: HTMLCanvasElement;
@@ -19,7 +19,7 @@ export class WelcomeTextComponent implements OnInit {
 
   controls: OrbitControls;
 
-  materials;
+  materials: THREE.MeshPhongMaterial[];
 
   constructor() {}
 
@@ -34,7 +34,6 @@ export class WelcomeTextComponent implements OnInit {
     this.scene.fog = new THREE.Fog(0x00263d, 500, 1500);
 
     this.container = document.getElementById('welcome-text-container');
-    console.log(this.container.clientWidth);
 
     this.camera = new THREE.PerspectiveCamera(
       75,
@@ -120,8 +119,6 @@ export class WelcomeTextComponent implements OnInit {
       antialias: true,
       canvas: this.canvas,
     });
-    console.log(this.container.clientHeight)
-    console.log(this.container.clientWidth)
     this.renderer.setSize(
       this.container.clientWidth,
       this.container.clientHeight
