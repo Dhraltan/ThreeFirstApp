@@ -93,5 +93,6 @@ export class GhiozdanComponent implements OnInit {
     requestAnimationFrame(() => this.animate());
 
     this.renderer.render(this.scene, this.camera);
+    this.onWindowResize();
   }
 }
