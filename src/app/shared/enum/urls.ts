@@ -6,6 +6,9 @@ export enum URLS {
 
     LOGIN = 'auth/login',
     REGISTER = 'auth/register',
+
+    GHIOZDAN = 'three/ghiozdan',
+    LUCIAN = 'three/lucian'
   }
   
   

@@ -13,6 +13,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 import { HeaderComponent } from './components/header/header.component';
 import { ValidationMessageComponent } from './components/validation-message/validation-message.component';
@@ -40,6 +41,7 @@ import { LoadingGifComponent } from './components/loading-gif/loading-gif.compon
     NzMenuModule,
     NzNotificationModule,
     NzPopoverModule,
+    NzCardModule
   ],
   exports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { LoadingGifComponent } from './components/loading-gif/loading-gif.compon
     NzMenuModule,
     NzNotificationModule,
     NzPopoverModule,
+    NzCardModule
   ],
 })
 export class SharedModule {}

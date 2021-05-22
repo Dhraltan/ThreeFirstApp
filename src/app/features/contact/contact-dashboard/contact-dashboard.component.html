@@ -1,1 +1,36 @@
-<p>contact-dashboard works!</p>
+<div id="contact-container">
+  <div id="card-container">
+    <nz-card nzTitle="Get in touch">
+
+      <form nz-form [formGroup]="contactForm" class="login-form">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Full name!">
+          <nz-input-group>
+            <nz-form-label nzRequired>Fullname</nz-form-label>
+            <input type="text" nz-input formControlName="fullname" placeholder="Fullname" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Email!">
+          <nz-input-group>
+            <nz-form-label nzRequired>Email</nz-form-label>
+            <input type="email" nz-input formControlName="email" placeholder="Email" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Message</nz-form-label>
+        <nz-form-control nzErrorTip="Please write your message here!">
+          <textarea formControlName="message" nz-input rows="4" placeholder="Your message"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button [nzType]="'primary'">Send Message</button>
+    </form>
+
+    </nz-card>
+  </div>
+  <div id="image-container"></div>
+</div>

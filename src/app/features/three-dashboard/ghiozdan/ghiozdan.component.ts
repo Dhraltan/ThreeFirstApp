@@ -18,7 +18,7 @@ export class GhiozdanComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.container = document.getElementById('object-container');
+    this.container = document.getElementById('canvas-container-ghiozdan');
 
     this.initRenderer();
     this.initScene();
@@ -42,7 +42,7 @@ export class GhiozdanComponent implements OnInit {
   }
 
   initRenderer(): void {
-    this.canvas = document.getElementById('object') as HTMLCanvasElement;
+    this.canvas = document.getElementById('canvas-ghiozdan') as HTMLCanvasElement;
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -78,7 +78,7 @@ export class GhiozdanComponent implements OnInit {
   }
 
   onWindowResize(): void {
-    this.container = document.getElementById('object-container');
+    this.container = document.getElementById('canvas-container-ghiozdan');
     this.camera.aspect =
       this.container.clientWidth / this.container.clientHeight;
     this.camera.updateProjectionMatrix();

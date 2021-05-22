@@ -4,7 +4,7 @@
 <a *ngIf="currentUser" (click)="logOut()" id="log-out-btn"> Log out </a>
 
 <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-  <li nz-menu-item nzMatchRouter>
+  <li nz-menu-item nzMatchRouter [nzDisabled]="currentUser ? false : true">
     <a [routerLink]="['/', 'home']"><i nz-icon nzType="home" nzTheme="outline"></i>Home</a>
   </li>
 

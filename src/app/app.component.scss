@@ -7,12 +7,22 @@ nz-content {
   min-height: 100%;
 }
 
-nz-header{
+nz-header {
   padding: 0;
 }
 
-#sub-body{
-    min-height: 100%;
+#sub-body {
+  min-height: 100%;
+}
+
+nz-layout {
+  background: rgb(133, 208, 255);
+  background: linear-gradient(
+    50deg,
+    rgba(133, 208, 255, 1) 0%,
+    rgba(214, 239, 255, 1) 60%,
+    rgba(121, 246, 190, 1) 100%
+  );
 }
 
 @media only screen and (min-width: 1400px) {
@@ -20,7 +30,7 @@ nz-header{
     padding: 24px 4rem;
   }
 
-  nz-header{
+  nz-header {
     padding: 0 4rem;
   }
 
@@ -29,13 +39,12 @@ nz-header{
   }
 }
 
-
 @media only screen and (max-width: 1400px) and (min-width: 900px) {
   .inner-layout {
     padding: 12px;
   }
 
-  nz-header{
+  nz-header {
     padding: 0 12px;
   }
 

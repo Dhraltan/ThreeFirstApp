@@ -1,0 +1,28 @@
+#contact-container{
+  display: flex;
+  height:  calc(100vh - 136px);
+  position: relative;
+
+  div{
+    width: 50%;
+  }
+
+  #card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    nz-card{
+      width: 80%;
+    }
+  }
+
+  #image-container{
+
+    background-image: url("../../../../assets/images/contact-us.jpg");
+    
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  }
+}
