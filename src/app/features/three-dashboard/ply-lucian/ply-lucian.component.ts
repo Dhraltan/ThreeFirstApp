@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { BufferAttribute } from 'three';
 
 @Component({
   selector: 'app-ply-lucian',
@@ -36,9 +37,8 @@ export class PlyLucianComponent implements OnInit {
   }
 
   initAndAddLight(): void {
-    const light = new THREE.PointLight(0xffffff, 1);
-    light.position.set(10, 10, 10);
-    this.scene.add(light);
+    const ambientLight = new THREE.AmbientLight(0xffffff)
+    this.scene.add(ambientLight);
   }
 
   initRenderer(): void {
@@ -48,7 +48,7 @@ export class PlyLucianComponent implements OnInit {
       antialias: true,
       canvas: this.canvas,
     });
-    this.renderer.outputEncoding = THREE.sRGBEncoding;
+    // this.renderer.outputEncoding = THREE.sRGBEncoding;
     this.renderer.setSize(
       this.container.clientWidth,
       this.container.clientHeight
@@ -69,12 +69,23 @@ export class PlyLucianComponent implements OnInit {
 
   loadAndAddTexture(): void {
 
+    const spaceTexture = new THREE.TextureLoader().load('assets/texture/background.jpg');
+    this.scene.background = spaceTexture;
+
     const loader = new PLYLoader();
 
 		for (let index = 0; index < 13; index++) {
 			loader.load(`assets/texture/nii3/rotated_dreapta/rotated_dreapta${index}.ply`, (geometry) => {
       const material = new THREE.PointsMaterial({ size: 0.008 });
       material.vertexColors = true;
+
+      // For furthur use to set the color dynamically
+      // const colors = geometry.attributes.color.clone()
+      // for (let index = 0; index < colors.count; index++) {
+      //   colors.set(new Float32Array([1,1,1]),index*3)
+      // }
+      // geometry.setAttribute('color',colors)
+
       const mesh = new THREE.Points(geometry, material);
       this.scene.add(mesh);
     });

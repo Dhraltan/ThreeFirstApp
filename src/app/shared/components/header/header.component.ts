@@ -35,6 +35,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  redirectToHome(){
+    console.log('works')
+    this.router.navigateByUrl(URLS.LOGIN)
+  }
+
   logOut() {
     this.authService.logOut().subscribe(
       (res) => {

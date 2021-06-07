@@ -48,21 +48,11 @@ export class WelcomeTextComponent implements OnInit {
     dirLight.position.set(0, 0, 1).normalize();
     this.scene.add(dirLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 1.5);
-    pointLight.position.set(0, 300, 90);
-    this.scene.add(pointLight);
+    const ambientLight = new THREE.AmbientLight(0xffffff)
+    this.scene.add(ambientLight)
 
-    const plane = new THREE.Mesh(
-      new THREE.PlaneGeometry(10000, 10000),
-      new THREE.MeshBasicMaterial({
-        color: 0x087243,
-        opacity: 0.6,
-        transparent: false,
-      })
-    );
-    plane.position.y = -200;
-    plane.rotation.x = -Math.PI / 2;
-    this.scene.add(plane);
+    const spaceTexture = new THREE.TextureLoader().load('assets/texture/background.jpg');
+    this.scene.background = spaceTexture;
 
 
     const group = new THREE.Group();
@@ -97,14 +87,14 @@ export class WelcomeTextComponent implements OnInit {
           -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
 
         const materials = [
-          new THREE.MeshPhongMaterial({ color: 0x99d8ff, flatShading: true }), // front
-          new THREE.MeshPhongMaterial({ color: 0xade0ff }), // side
+          new THREE.MeshPhongMaterial({ color: 0x0cac64, flatShading: true, shininess: 0 }), // front
+          new THREE.MeshPhongMaterial({ color: 0x0b9959 }), // side
         ];
         const textMesh1 = new THREE.Mesh(textGeo, materials);
 
         textMesh1.position.x = centerOffset;
         textMesh1.position.y = 30;
-        textMesh1.position.z = 0;
+        textMesh1.position.z = -100;
 
         textMesh1.rotation.x = 0;
         textMesh1.rotation.y = Math.PI * 2;

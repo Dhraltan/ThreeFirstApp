@@ -1,5 +1,5 @@
-<div class="logo">
-  <img src="assets/images/logo-alb.png" alt="" />
+<div (click)="redirectToHome()" class="logo">
+  <img  src="assets/images/logo-alb.png" alt="" />
 </div>
 <a *ngIf="currentUser" (click)="logOut()" id="log-out-btn"> Log out </a>
 

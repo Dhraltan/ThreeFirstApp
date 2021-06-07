@@ -16,12 +16,11 @@ nz-header {
 }
 
 nz-layout {
-  background: rgb(133, 208, 255);
+  background: #00c9ff;
   background: linear-gradient(
-    50deg,
-    rgba(133, 208, 255, 1) 0%,
-    rgba(214, 239, 255, 1) 60%,
-    rgba(121, 246, 190, 1) 100%
+    to right,
+    #f2fcfe 0%,
+    #1c92d2 100%
   );
 }
 
