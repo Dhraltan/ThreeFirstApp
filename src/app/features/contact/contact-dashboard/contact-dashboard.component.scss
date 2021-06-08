@@ -1,28 +1,55 @@
-#contact-container{
+#contact-container {
   display: flex;
-  height:  calc(100vh - 136px);
+  height: calc(100vh - 136px);
   position: relative;
 
-  div{
+  div {
     width: 50%;
   }
 
-  #card-container{
+  #card-container {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    nz-card{
+    nz-card {
       width: 80%;
+
+      ::ng-deep .ant-card-head {
+        background: linear-gradient(to right, #f2fcfe, #1c92d2);
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-align: right;
+        color: white;
+
+        
+      }
+      ::ng-deep .ant-form-item-label > label{
+        font-weight: bold;
+        color: #001529;
+      }
     }
   }
 
-  #image-container{
+  #image-container {
+    background-image: url("../../../../assets/images/message.png");
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: 512px;
+    /* Resize the background image to cover the entire container */
+  }
 
-    background-image: url("../../../../assets/images/contact-us.jpg");
-    
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  #send-btn{
+    margin-bottom: 16px;
+    width: 100%;
+    background-color: #0cac64 !important;
+    border-color: #0cac64 !important;
+
+    &:disabled{
+      background-color: #f2fcfe !important;
+      border-color: #ceeeff !important;
+    }
   }
 }
