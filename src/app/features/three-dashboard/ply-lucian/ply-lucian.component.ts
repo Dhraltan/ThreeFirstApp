@@ -15,7 +15,7 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
   renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
-  animationFrame;
+  animationFrame: number;
 
   constructor() {}
 
