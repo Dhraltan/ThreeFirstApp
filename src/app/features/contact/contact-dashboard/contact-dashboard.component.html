@@ -3,43 +3,45 @@
     <nz-card nzTitle="Get in touch">
 
       <form nz-form [formGroup]="contactForm" (ngSubmit)="sendMail()" class="login-form">
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Full name!">
-          <nz-input-group>
-            <nz-form-label nzRequired>Your full name</nz-form-label>
-            <input type="text" nz-input formControlName="fullname" placeholder="Fullname" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Email!">
-          <nz-input-group>
-            <nz-form-label nzRequired>Your email address</nz-form-label>
-            <input type="email" nz-input formControlName="email" placeholder="Email" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Full name!">
+            <nz-input-group>
+              <nz-form-label nzRequired>Your full name</nz-form-label>
+              <input type="text" nz-input formControlName="fullname" placeholder="Fullname" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Email!">
+            <nz-input-group>
+              <nz-form-label nzRequired>Your email address</nz-form-label>
+              <input type="email" nz-input formControlName="email" placeholder="Email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Please input a subject!">
-          <nz-input-group>
-            <nz-form-label nzRequired>Email subject</nz-form-label>
-            <input type="subject" nz-input formControlName="subject" placeholder="Subject" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input a subject!">
+            <nz-input-group>
+              <nz-form-label nzRequired>Email subject</nz-form-label>
+              <input type="subject" nz-input formControlName="subject" placeholder="Subject" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Please write your message here!">
-          <nz-form-label nzRequired>Email message</nz-form-label>
-          <textarea formControlName="text" nz-input rows="4" placeholder="Message"></textarea>
-        </nz-form-control>
-      </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please write your message here!">
+            <nz-form-label nzRequired>Email message</nz-form-label>
+            <textarea formControlName="text" nz-input rows="4" placeholder="Message"></textarea>
+          </nz-form-control>
+        </nz-form-item>
 
-      <button nz-button [disabled]="!this.contactForm.valid" [nzType]="'primary'" id="send-btn">Send Message</button>
-    </form>
+        <button nz-button [disabled]="!this.contactForm.valid" [nzType]="'primary'" id="send-btn">Send Message</button>
+      </form>
 
     </nz-card>
   </div>
-  <div id="image-container"></div>
+  <div id="image-container" title="Icons made by Freepik from www.flaticon.com">
+      
+  </div>
 </div>

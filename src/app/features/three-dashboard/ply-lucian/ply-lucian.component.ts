@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -9,12 +9,13 @@ import { BufferAttribute } from 'three';
   templateUrl: './ply-lucian.component.html',
   styleUrls: ['./ply-lucian.component.scss'],
 })
-export class PlyLucianComponent implements OnInit {
+export class PlyLucianComponent implements OnInit, OnDestroy {
   container: HTMLElement;
   canvas: HTMLCanvasElement;
   renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
+  animationFrame;
 
   constructor() {}
 
@@ -30,6 +31,10 @@ export class PlyLucianComponent implements OnInit {
     window.addEventListener('resize', () => this.onWindowResize(), false);
 
     this.animate();
+  }
+
+  ngOnDestroy():void{
+    cancelAnimationFrame(this.animationFrame)
   }
 
   initScene(): void {
@@ -105,7 +110,7 @@ export class PlyLucianComponent implements OnInit {
   }
 
   animate(): void {
-    requestAnimationFrame(() => this.animate());
+    this.animationFrame = requestAnimationFrame(() => this.animate());
 
     this.renderer.render(this.scene, this.camera);
     this.onWindowResize();
