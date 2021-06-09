@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { BufferAttribute } from 'three';
+import { ElasticService } from '@app/core/api/elastic.service';
 
 @Component({
   selector: 'app-ply-lucian',
@@ -17,15 +18,19 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
   camera: THREE.PerspectiveCamera;
   animationFrame: number;
 
-  constructor() {}
+  //colors
+  originalColors;
 
-  ngOnInit(): void {
+  constructor(private elasticService: ElasticService) {}
+
+  async ngOnInit(): Promise<void> {
     this.container = document.getElementById('canvas-container-lucian');
 
     this.initRenderer();
     this.initScene();
     this.initAndAddLight();
     this.initCamera();
+    await this.getIndexData();
     this.loadAndAddTexture();
 
     window.addEventListener('resize', () => this.onWindowResize(), false);
@@ -33,8 +38,8 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
     this.animate();
   }
 
-  ngOnDestroy():void{
-    cancelAnimationFrame(this.animationFrame)
+  ngOnDestroy(): void {
+    cancelAnimationFrame(this.animationFrame);
   }
 
   initScene(): void {
@@ -42,7 +47,7 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
   }
 
   initAndAddLight(): void {
-    const ambientLight = new THREE.AmbientLight(0xffffff)
+    const ambientLight = new THREE.AmbientLight(0xffffff);
     this.scene.add(ambientLight);
   }
 
@@ -73,28 +78,35 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
   }
 
   loadAndAddTexture(): void {
-
-    const spaceTexture = new THREE.TextureLoader().load('assets/texture/background.jpg');
+    const spaceTexture = new THREE.TextureLoader().load(
+      'assets/texture/background.jpg'
+    );
     this.scene.background = spaceTexture;
 
     const loader = new PLYLoader();
 
-		for (let index = 0; index < 13; index++) {
-			loader.load(`assets/texture/nii3/rotated_dreapta/rotated_dreapta${index}.ply`, (geometry) => {
-      const material = new THREE.PointsMaterial({ size: 0.008 });
-      material.vertexColors = true;
+    for (let index = 0; index < 13; index++) {
+      loader.load(
+        `assets/texture/nii3/rotated_dreapta/rotated_dreapta${index}.ply`,
+        (geometry) => {
+          const material = new THREE.PointsMaterial({ size: 0.008 });
+          material.vertexColors = true;
 
-      // For furthur use to set the color dynamically
-      // const colors = geometry.attributes.color.clone()
-      // for (let index = 0; index < colors.count; index++) {
-      //   colors.set(new Float32Array([1,1,1]),index*3)
-      // }
-      // geometry.setAttribute('color',colors)
+          const colors = geometry.attributes.color.clone();
+          for (let colorIndex = 0; colorIndex < colors.count; colorIndex++) {
+            const r = colors.array[colorIndex * 3];
+            const g = colors.array[colorIndex * 3 + 1];
+            const b = colors.array[colorIndex * 3 + 2];
+            let lum = 0.299 * r + 0.587 * g + 0.114 * b;
+            colors.set([lum, lum, lum], colorIndex * 3);
+          }
+          geometry.setAttribute('color', colors);
 
-      const mesh = new THREE.Points(geometry, material);
-      this.scene.add(mesh);
-    });
-		}
+          const mesh = new THREE.Points(geometry, material);
+          this.scene.add(mesh);
+        }
+      );
+    }
   }
 
   onWindowResize(): void {
@@ -114,5 +126,11 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
 
     this.renderer.render(this.scene, this.camera);
     this.onWindowResize();
+  }
+
+  async getIndexData() {
+    return this.elasticService.getIndex().catch((err) => {
+      console.error(err);
+    });
   }
 }

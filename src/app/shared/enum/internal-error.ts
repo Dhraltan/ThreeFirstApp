@@ -8,6 +8,9 @@ export enum InternalError {
   // contact errors
   C_000 = 'Error: C_000. We could not send an email, please check back later.',
 
+  // elastic errors
+  E_000 = 'Error: E_000. We could not retrieve data from the elastic server.',
+
   // user errors
   U_000 = 'Error: A_000. We could not get your account information.',
 }
