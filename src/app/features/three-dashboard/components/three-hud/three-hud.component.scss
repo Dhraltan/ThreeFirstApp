@@ -4,6 +4,7 @@
 }
 
 #hud-container {
+  transition: height 2s ease-out;
   width: fit-content;
   background-color: #001529b4;
   color: #fafaff;
@@ -48,10 +49,10 @@
   }
 
   ::ng-deep .ant-radio-button-wrapper-checked{
-    border-color: #7bccff !important;
-    color: #7bccff !important;
+    border-color: #001529b4 !important;
+    color: #001529 !important;
     font-weight: bold;
-    background: #ffffff00 !important;
+    background: #ffffff86 !important;
   }
 
   .full-width{
