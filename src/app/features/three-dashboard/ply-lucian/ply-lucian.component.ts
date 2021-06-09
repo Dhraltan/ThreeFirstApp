@@ -18,6 +18,8 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
   camera: THREE.PerspectiveCamera;
   animationFrame: number;
 
+  pause = false;
+
   //colors
   originalColors;
 
@@ -33,13 +35,18 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
     await this.getIndexData();
     this.loadAndAddTexture();
 
-    window.addEventListener('resize', () => this.onWindowResize(), false);
+    window.addEventListener('resize', this.onWindowResize, false);
 
     this.animate();
   }
 
   ngOnDestroy(): void {
+    this.pause = true;
     cancelAnimationFrame(this.animationFrame);
+    window.removeEventListener('resize', this.onWindowResize, false);
+    this.renderer.dispose();
+    this.camera = null;
+    this.scene = null;
   }
 
   initScene(): void {
@@ -104,12 +111,14 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
 
           const mesh = new THREE.Points(geometry, material);
           this.scene.add(mesh);
+          geometry.dispose();
+          material.dispose();
         }
       );
     }
   }
 
-  onWindowResize(): void {
+  onWindowResize = () => {
     this.container = document.getElementById('canvas-container-lucian');
     this.camera.aspect =
       this.container.clientWidth / this.container.clientHeight;
@@ -119,9 +128,12 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
       this.container.clientHeight
     );
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 
   animate(): void {
+    if (this.pause) {
+      return;
+    }
     this.animationFrame = requestAnimationFrame(() => this.animate());
 
     this.renderer.render(this.scene, this.camera);
@@ -132,5 +144,9 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
     return this.elasticService.getIndex().catch((err) => {
       console.error(err);
     });
+  }
+
+  log() {
+    console.log('resize');
   }
 }

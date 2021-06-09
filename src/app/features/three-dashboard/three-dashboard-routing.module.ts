@@ -7,7 +7,7 @@ import { ThreeDashboardComponent } from './three-dashboard-component/three-dashb
 
 const routes: Routes = [
   {
-    path: 'cube',
+    path: 'nii3',
     component: ThreeDashboardComponent,
   },
   {
@@ -15,12 +15,8 @@ const routes: Routes = [
     component: TestPlyComponent,
   },
   {
-    path: 'lucian',
-    component: PlyLucianComponent
-  },
-  {
     path: 'ghiozdan',
-    component: GhiozdanComponent
+    component: ThreeDashboardComponent
   },
 ];
 

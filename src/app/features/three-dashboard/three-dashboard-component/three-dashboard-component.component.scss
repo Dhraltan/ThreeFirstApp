@@ -1,3 +1,9 @@
-canvas{
-    overflow: hidden;
+#three-container{
+    position: relative;
+    #details-container{
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }

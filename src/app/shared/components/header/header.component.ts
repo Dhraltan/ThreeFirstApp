@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   redirectToHome(){
-    console.log('works')
     this.router.navigateByUrl(URLS.LOGIN)
   }
 

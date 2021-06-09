@@ -15,6 +15,8 @@ export class GhiozdanComponent implements OnInit {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
 
+  animationFrame:number;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -30,6 +32,11 @@ export class GhiozdanComponent implements OnInit {
 
     this.animate();
   }
+
+  ngOnDestroy(): void {
+    cancelAnimationFrame(this.animationFrame);
+  }
+
 
   initScene(): void {
     this.scene = new THREE.Scene();
@@ -90,7 +97,7 @@ export class GhiozdanComponent implements OnInit {
   }
 
   animate(): void {
-    requestAnimationFrame(() => this.animate());
+    this.animationFrame = requestAnimationFrame(() => this.animate());
 
     this.renderer.render(this.scene, this.camera);
     this.onWindowResize();

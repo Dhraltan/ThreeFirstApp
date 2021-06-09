@@ -6,9 +6,11 @@ import { TestPlyComponent } from './test-ply/test-ply.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { PlyLucianComponent } from './ply-lucian/ply-lucian.component';
 import { GhiozdanComponent } from './ghiozdan/ghiozdan.component';
+import { ThreeHudComponent } from './components/three-hud/three-hud.component';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @NgModule({
-  declarations: [ThreeDashboardComponent, TestPlyComponent, PlyLucianComponent, GhiozdanComponent],
-  imports: [SharedModule, ThreeDashboardRoutingModule],
+  declarations: [ThreeDashboardComponent, TestPlyComponent, PlyLucianComponent, GhiozdanComponent, ThreeHudComponent],
+  imports: [SharedModule, ThreeDashboardRoutingModule, NzRadioModule],
 })
 export class ThreeDashboardModule {}

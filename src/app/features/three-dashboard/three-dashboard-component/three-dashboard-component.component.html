@@ -1,1 +1,8 @@
-<canvas id="web-gl-renderer"></canvas>
+<div id="three-container">
+  <app-ply-lucian *ngIf="selectedIndex == 1"></app-ply-lucian>
+  <app-ply-lucian *ngIf="selectedIndex == 2"></app-ply-lucian>
+
+  <div id="details-container">
+    <app-three-hud></app-three-hud>
+  </div>
+</div>

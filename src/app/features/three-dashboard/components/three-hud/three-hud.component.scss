@@ -1,0 +1,82 @@
+.enlarge {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#hud-container {
+  width: fit-content;
+  background-color: #001529b4;
+  color: #fafaff;
+
+  i {
+    font-size: 1.3rem;
+    padding: 8px;
+    cursor: pointer;
+    color: #fafaffa6;
+    background-color: #001529;
+
+    &:hover {
+      color: #fff;
+      background-color: #0071b8;
+    }
+  }
+
+  #title {
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .radio-group-container {
+    justify-content: center;
+    display: flex;
+    margin: 1rem 0;
+
+    .subtitle {
+      padding: 5px 10px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .radio-group {
+      display: inline-grid;
+      padding: 0 10px;
+      width: 100%;
+    }
+  }
+
+  ::ng-deep .ant-radio-button-wrapper-checked{
+    border-color: #7bccff !important;
+    color: #7bccff !important;
+    font-weight: bold;
+    background: #ffffff00 !important;
+  }
+
+  .full-width{
+    width: 100%;
+  }
+
+  ::ng-deep .ant-radio-button-wrapper {
+    background: #ffffff14;
+    color: white;
+    border-left: 1px solid white;
+
+    &:hover{
+      color: #0071b8;
+    }
+
+    &:last-child {
+      border-radius: 0;
+    }
+
+    &:first-child {
+      border-radius: 0;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+}

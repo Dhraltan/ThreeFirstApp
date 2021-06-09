@@ -1,0 +1,18 @@
+<div id="hud-container" [ngClass]="{ enlarge: hideHud === false }">
+  <i nz-icon [nzType]="hideHud ? 'right' : 'left'" (click)="changeHudDisplay()" nzTheme="outline">
+  </i>
+
+  <div *ngIf="!hideHud">
+    <div id="title">Select a unit to be displayed:</div>
+
+    <div *ngFor="let title of hudInformation | keyvalue;let index = index" class="radio-group-container">
+      <div class="full-width">
+        <div class="subtitle">{{title.key}}</div>
+        <nz-radio-group [(ngModel)]="selectedUnit[index]" (ngModelChange)="clearOtherRadioSelection(index)"
+          class="radio-group">
+          <label *ngFor="let buton of title.value;let i = index" nz-radio-button [nzValue]="i+1">{{buton}}</label>
+        </nz-radio-group>
+      </div>
+    </div>
+  </div>
+</div>
