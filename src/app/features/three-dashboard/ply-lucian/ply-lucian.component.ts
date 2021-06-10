@@ -1,27 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { BufferAttribute } from 'three';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { ElasticService } from '@app/core/api/elastic.service';
+import { HuhIDs } from '@app/shared/enum/hudIDs';
+import { BufferGeometry } from 'three';
 
 @Component({
   selector: 'app-ply-lucian',
   templateUrl: './ply-lucian.component.html',
   styleUrls: ['./ply-lucian.component.scss'],
 })
-export class PlyLucianComponent implements OnInit, OnDestroy {
+export class PlyLucianComponent implements OnInit, OnChanges, OnDestroy {
   container: HTMLElement;
   canvas: HTMLCanvasElement;
   renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
   animationFrame: number;
+  mesh: THREE.Points<THREE.BufferGeometry, THREE.PointsMaterial>;
 
+  geometryMerged: THREE.BufferGeometry;
   pause = false;
 
   //colors
-  originalColors;
+  originalColors: THREE.BufferAttribute;
+  grayscaleColors: THREE.BufferAttribute;
+
+  @Input() modelColorSelection: string;
 
   constructor(private elasticService: ElasticService) {}
 
@@ -38,6 +45,10 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
     window.addEventListener('resize', this.onWindowResize, false);
 
     this.animate();
+  }
+
+  ngOnChanges(): void {
+    this.setColorBasedOnInput();
   }
 
   ngOnDestroy(): void {
@@ -92,33 +103,76 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
 
     const loader = new PLYLoader();
 
+    let counter = 0;
     for (let index = 0; index < 13; index++) {
-      loader.load(
-        `assets/texture/nii3/rotated_dreapta/rotated_dreapta${index}.ply`,
-        (geometry) => {
-          const material = new THREE.PointsMaterial({ size: 0.008 });
-          material.vertexColors = true;
-
-          const colors = geometry.attributes.color.clone();
-          for (let colorIndex = 0; colorIndex < colors.count; colorIndex++) {
-            const r = colors.array[colorIndex * 3];
-            const g = colors.array[colorIndex * 3 + 1];
-            const b = colors.array[colorIndex * 3 + 2];
-            let lum = 0.299 * r + 0.587 * g + 0.114 * b;
-            colors.set([lum, lum, lum], colorIndex * 3);
+      loader
+        .loadAsync(
+          `assets/texture/nii3/rotated_dreapta/rotated_dreapta${index}.ply`
+        )
+        .then((geometry: BufferGeometry) => {
+          if (geometry.attributes.normal) {
+            geometry.deleteAttribute('normal');
           }
-          geometry.setAttribute('color', colors);
+          if (this.geometryMerged) {
+            this.geometryMerged = BufferGeometryUtils.mergeBufferGeometries([
+              this.geometryMerged,
+              geometry,
+            ]);
+          } else {
+            this.geometryMerged = geometry;
+          }
+        })
+        .finally(() => {
+          counter++;
+          if (counter == 13) {
+            this.originalColors = this.geometryMerged.attributes.color.clone();
 
-          const mesh = new THREE.Points(geometry, material);
-          this.scene.add(mesh);
-          geometry.dispose();
-          material.dispose();
-        }
-      );
+            const material = new THREE.PointsMaterial({ size: 0.008 });
+            material.vertexColors = true;
+
+            this.mesh = new THREE.Points(this.geometryMerged, material);
+            this.scene.add(this.mesh);
+          }
+        });
     }
   }
 
-  onWindowResize = () => {
+  setGrayscaleColor(): void {
+    if (!this.grayscaleColors) {
+      this.grayscaleColors = this.originalColors.clone();
+      for (
+        let colorIndex = 0;
+        colorIndex < this.grayscaleColors.count;
+        colorIndex++
+      ) {
+        const r = this.grayscaleColors.array[colorIndex * 3];
+        const g = this.grayscaleColors.array[colorIndex * 3 + 1];
+        const b = this.grayscaleColors.array[colorIndex * 3 + 2];
+        let lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        this.grayscaleColors.set([lum, lum, lum], colorIndex * 3);
+      }
+    }
+    this.geometryMerged.setAttribute('color', this.grayscaleColors);
+  }
+
+  setOriginalColors(): void {
+    this.geometryMerged.setAttribute('color', this.originalColors);
+  }
+
+  setColorBasedOnInput(): void {
+    switch (this.modelColorSelection) {
+      case HuhIDs.Original:
+        this.setOriginalColors();
+        break;
+      case HuhIDs.Grayscale:
+        this.setGrayscaleColor();
+        break;
+      default:
+        break;
+    }
+  }
+
+  onWindowResize = (): void => {
     this.container = document.getElementById('canvas-container-lucian');
     this.camera.aspect =
       this.container.clientWidth / this.container.clientHeight;
@@ -144,9 +198,5 @@ export class PlyLucianComponent implements OnInit, OnDestroy {
     return this.elasticService.getIndex().catch((err) => {
       console.error(err);
     });
-  }
-
-  log() {
-    console.log('resize');
   }
 }

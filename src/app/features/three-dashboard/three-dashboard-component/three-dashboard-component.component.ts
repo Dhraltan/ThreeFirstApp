@@ -10,13 +10,14 @@ import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 })
 export class ThreeDashboardComponent implements OnInit {
   selectedIndex = 0;
-  constructor(private router:Router) {}
+  modelColorSelection: string;
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.selectTab()
+    this.selectModel();
   }
 
-  selectTab(): void {
+  selectModel(): void {
     switch (this.router.url) {
       case '/three/nii3':
         this.selectedIndex = 1;
@@ -27,5 +28,9 @@ export class ThreeDashboardComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  changeModelColors(event) {
+    this.modelColorSelection = event
   }
 }

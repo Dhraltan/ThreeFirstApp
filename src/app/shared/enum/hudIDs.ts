@@ -1,0 +1,16 @@
+export enum HuhIDs {
+  Original = 'normal_color',
+  Grayscale = 'grayscale_color',
+  Vibrations = 'vibrations_color',
+  Temperature = 'bme680_temperature_color',
+  ATM = 'bme680_atm_color',
+  BME680ECO2 = 'bme680_eco2_color',
+  BME680TVOC = 'bme680_tvoc_color',
+  IAQ = 'bme680_iaq_color',
+  SIAQ = 'bme680_siaq_color',
+  CCS811ECO2 = 'ccs811_eco2_color',
+  CCS811TVOC = 'ccs811_tvoc_color',
+  PM1 = 'zh03b_pm1_color',
+  PM25 = 'zh03b_pm2.5_color',
+  PM10 = 'zh03b_pm10_color',
+}

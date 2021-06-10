@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { hudInformation } from '@app/shared/enum/hudInformation';
 
 @Component({
   selector: 'app-three-hud',
@@ -6,41 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./three-hud.component.scss'],
 })
 export class ThreeHudComponent implements OnInit {
-  hudInformation = {
-    'Basic views:': ['Normal color view', 'Grayscale view', 'Vibrations'],
-    'Measured by BME680:': [
-      'Temperature',
-      'Atmospheric pressure',
-      'Estimated CO2',
-      'Total concentration of VOC',
-      'IAQ',
-      'Subjective IAQ',
-    ],
-    'Measured by CCS811': ['Estimated CO2', 'Total concentration of VOC'],
-    'Measured by ZH03B:': [
-      'Particle Matter of 1.0ug',
-      'Particle Matter of 2.5ug',
-      'Particle Matter of 10ug',
-    ],
-  };
+  hudInformation = hudInformation;
 
   hideHud: boolean = true;
-  selectedUnit: number[] = [0, 0, 0, 0];
+  selectedUnit: number[] = [1, 0, 0, 0];
+
+  @Output() onSelectedOption: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.selectedUnit[0] = 1;
-  }
+  ngOnInit(): void {}
 
   changeHudDisplay() {
     this.hideHud = !this.hideHud;
   }
 
-  clearOtherRadioSelection(index) {
-    console.log(this.selectedUnit);
+  radioButtonSelection(id: string, event: number) {
+    this.onSelectedOption.emit(id);
     this.selectedUnit.forEach((unit, i) => {
-      if (index != i) {
+      if (event != i) {
         this.selectedUnit[i] = 0;
       }
     });

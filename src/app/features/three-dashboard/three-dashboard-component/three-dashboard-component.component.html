@@ -1,8 +1,8 @@
 <div id="three-container">
-  <app-ply-lucian *ngIf="selectedIndex == 1"></app-ply-lucian>
-  <app-ply-lucian *ngIf="selectedIndex == 2"></app-ply-lucian>
+  <app-ply-lucian [modelColorSelection]="modelColorSelection"></app-ply-lucian>
+  
 
   <div id="details-container">
-    <app-three-hud></app-three-hud>
+    <app-three-hud (onSelectedOption)="changeModelColors($event)"></app-three-hud>
   </div>
 </div>
