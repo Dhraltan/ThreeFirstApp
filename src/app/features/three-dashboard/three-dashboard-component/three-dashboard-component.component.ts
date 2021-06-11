@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ElasticService } from '@app/core/api/elastic.service';
 import * as THREE from 'three';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 
@@ -11,7 +12,7 @@ import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
 export class ThreeDashboardComponent implements OnInit {
   selectedIndex = 0;
   modelColorSelection: string;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private elasticService: ElasticService) {}
 
   ngOnInit() {
     this.selectModel();
@@ -30,7 +31,13 @@ export class ThreeDashboardComponent implements OnInit {
     }
   }
 
-  changeModelColors(event) {
-    this.modelColorSelection = event
+  async getIndexData() {
+    return this.elasticService.getIndex().catch((err) => {
+      console.error(err);
+    });
+  }
+
+  changeModelColors(event: string) {
+    this.modelColorSelection = event;
   }
 }

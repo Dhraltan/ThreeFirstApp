@@ -9,7 +9,7 @@
       <div class="full-width">
         <div class="subtitle">{{hudPart.title}}</div>
         <nz-radio-group [(ngModel)]="selectedUnit[index]"
-          (ngModelChange)="radioButtonSelection(hudPart.buttons[$event-1].id,$event)" class="radio-group">
+          (ngModelChange)="radioButtonSelection(hudPart.buttons[$event-1].id,index)" class="radio-group">
           <label *ngFor="let buton of hudPart.buttons;let i = index" nz-radio-button
             [nzValue]="i+1">{{buton.title}}</label>
         </nz-radio-group>

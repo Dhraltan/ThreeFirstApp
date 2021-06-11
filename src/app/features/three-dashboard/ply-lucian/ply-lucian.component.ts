@@ -5,7 +5,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { ElasticService } from '@app/core/api/elastic.service';
 import { HuhIDs } from '@app/shared/enum/hudIDs';
-import { BufferGeometry } from 'three';
+import { BufferAttribute, BufferGeometry } from 'three';
+import { ComputeColorsService } from '@app/core/services/compute-colors.service';
 
 @Component({
   selector: 'app-ply-lucian',
@@ -24,22 +25,17 @@ export class PlyLucianComponent implements OnInit, OnChanges, OnDestroy {
   geometryMerged: THREE.BufferGeometry;
   pause = false;
 
-  //colors
-  originalColors: THREE.BufferAttribute;
-  grayscaleColors: THREE.BufferAttribute;
-
   @Input() modelColorSelection: string;
 
-  constructor(private elasticService: ElasticService) {}
+  constructor(private computeColorsService: ComputeColorsService) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.container = document.getElementById('canvas-container-lucian');
 
     this.initRenderer();
     this.initScene();
     this.initAndAddLight();
     this.initCamera();
-    await this.getIndexData();
     this.loadAndAddTexture();
 
     window.addEventListener('resize', this.onWindowResize, false);
@@ -125,9 +121,14 @@ export class PlyLucianComponent implements OnInit, OnChanges, OnDestroy {
         .finally(() => {
           counter++;
           if (counter == 13) {
-            this.originalColors = this.geometryMerged.attributes.color.clone();
+            this.computeColorsService.setOriginalColors(
+              this.geometryMerged.attributes.color as BufferAttribute
+            );
+            this.computeColorsService.setPositions(
+              this.geometryMerged.attributes.position as BufferAttribute
+            );
 
-            const material = new THREE.PointsMaterial({ size: 0.008 });
+            const material = new THREE.PointsMaterial({ size: 0.025});
             material.vertexColors = true;
 
             this.mesh = new THREE.Points(this.geometryMerged, material);
@@ -137,38 +138,31 @@ export class PlyLucianComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  setGrayscaleColor(): void {
-    if (!this.grayscaleColors) {
-      this.grayscaleColors = this.originalColors.clone();
-      for (
-        let colorIndex = 0;
-        colorIndex < this.grayscaleColors.count;
-        colorIndex++
-      ) {
-        const r = this.grayscaleColors.array[colorIndex * 3];
-        const g = this.grayscaleColors.array[colorIndex * 3 + 1];
-        const b = this.grayscaleColors.array[colorIndex * 3 + 2];
-        let lum = 0.299 * r + 0.587 * g + 0.114 * b;
-        this.grayscaleColors.set([lum, lum, lum], colorIndex * 3);
-      }
-    }
-    this.geometryMerged.setAttribute('color', this.grayscaleColors);
-  }
-
-  setOriginalColors(): void {
-    this.geometryMerged.setAttribute('color', this.originalColors);
-  }
-
   setColorBasedOnInput(): void {
+    let newColors: THREE.BufferAttribute = null;
+    let newPositions: THREE.BufferAttribute = null;
     switch (this.modelColorSelection) {
       case HuhIDs.Original:
-        this.setOriginalColors();
+        newPositions = this.computeColorsService.getPositions();
+        newColors = this.computeColorsService.getOriginalColors();
         break;
       case HuhIDs.Grayscale:
-        this.setGrayscaleColor();
+        newPositions = this.computeColorsService.getPositions();
+        newColors = this.computeColorsService.getGrayscaleColors();
+        break;
+      case HuhIDs.Temperature:
+        newPositions = this.computeColorsService.getComposedPositions();
+        newColors = this.computeColorsService.getTemperatureColors();
         break;
       default:
         break;
+    }
+
+    if(newPositions){
+      this.geometryMerged.setAttribute('position', newPositions)
+    }
+    if (newColors) {
+      this.geometryMerged.setAttribute('color', newColors);
     }
   }
 
@@ -192,11 +186,5 @@ export class PlyLucianComponent implements OnInit, OnChanges, OnDestroy {
 
     this.renderer.render(this.scene, this.camera);
     this.onWindowResize();
-  }
-
-  async getIndexData() {
-    return this.elasticService.getIndex().catch((err) => {
-      console.error(err);
-    });
   }
 }
