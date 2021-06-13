@@ -13,6 +13,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(en);
 
@@ -25,6 +26,7 @@ registerLocaleData(en);
     HttpClientModule,
 
     SharedModule,
+    CoreModule,
 
     NzLayoutModule,
     NzBreadCrumbModule,

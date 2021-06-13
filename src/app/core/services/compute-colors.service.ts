@@ -113,7 +113,7 @@ export class ComputeColorsService {
 
     const result = this.computeGradient(startColor, endColor, pointArraylenght);
 
-    for (let index = 0; index < this.composedPositions.count; index++) {
+    for (let index = this.positions.count; index < this.composedPositions.count; index++) {
       const x = this.composedPositions.array[index * 3];
       const y = this.composedPositions.array[index * 3 + 1];
       const z = this.composedPositions.array[index * 3 + 2];
@@ -124,7 +124,7 @@ export class ComputeColorsService {
 
       let color = [r, g, b];
 
-      if (x <= this.xLimit[1] && y <= this.yLimit[1] && z <= this.zLimit[1]) {
+      if (x <= this.xLimit[2] && y <= this.yLimit[1] && z <= this.zLimit[1]) {
         color = [startColor[0] / 255, startColor[1] / 255, startColor[1] / 255];
       }
 
@@ -179,8 +179,6 @@ export class ComputeColorsService {
       }
 
       floatArray.set(color, index * 3);
-
-      // grayscale.set(color, index * 3);
     }
     bufferAttribute = new BufferAttribute(floatArray, 3);
 
