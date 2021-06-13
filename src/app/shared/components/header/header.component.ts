@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
   subscriptions: Subscription = new Subscription();
 
   currentUser: UserDTO;
@@ -24,9 +23,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private notification: NzNotificationService,
     private accountService: AccountService
   ) {
-    this.subscriptions.add(this.accountService.user$.subscribe((user)=>{
-      this.currentUser = user
-    }))
+    this.subscriptions.add(
+      this.accountService.user$.subscribe((user) => {
+        this.currentUser = user;
+      })
+    );
   }
 
   ngOnInit(): void {}
@@ -35,8 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  redirectToHome(){
-    this.router.navigateByUrl(URLS.LOGIN)
+  redirectToHome() {
+    this.router.navigateByUrl(URLS.LOGIN);
   }
 
   logOut() {
@@ -55,5 +56,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
       }
     );
+  }
+
+  goToRegister() {
+    this.router.navigateByUrl(URLS.REGISTER);
+  }
+  
+  goToLogIn() {
+    this.router.navigateByUrl(URLS.LOGIN);
   }
 }

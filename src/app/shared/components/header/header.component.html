@@ -1,7 +1,11 @@
 <div (click)="redirectToHome()" class="logo">
-  <img  src="assets/images/logo-alb.png" alt="" />
+  <img src="assets/images/logo-alb.png" alt="" />
 </div>
-<a *ngIf="currentUser" (click)="logOut()" id="log-out-btn"> Log out </a>
+<div id="auth-btns">
+  <a *ngIf="currentUser?.role == 0" (click)="goToRegister()" id="log-out-btn"> Register User </a>
+  <a *ngIf="!currentUser" (click)="goToLogIn()" id="log-out-btn"> Log in </a>
+  <a *ngIf="currentUser" (click)="logOut()" id="log-out-btn"> Log out </a>
+</div>
 
 <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
   <li nz-menu-item nzMatchRouter [nzDisabled]="currentUser ? false : true">

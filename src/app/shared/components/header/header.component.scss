@@ -1,4 +1,4 @@
-.logo img{
+.logo img {
   width: 67px;
   height: 64px;
   margin: 0 35px 0 -12px;
@@ -10,12 +10,17 @@
   line-height: 64px;
 }
 
-#log-out-btn {
+#auth-btns {
   float: right;
   font-weight: bold;
-  color: #fafaffd3;
 
-  &:hover,:focus{
-    color: #fafaff;
+  a {
+    color: #fafaffd3;
+    margin: 0 10px;
+
+    &:hover,
+    :focus {
+      color: #fafaff;
+    }
   }
 }

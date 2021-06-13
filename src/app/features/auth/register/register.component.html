@@ -79,12 +79,25 @@
     </nz-form-control>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-control>
+      <label>Select user role</label>
+      <app-validation-message
+        [controlName]="'role'"
+        [control]="registerForm.controls['role']"
+      ></app-validation-message>
+      <nz-select nzSize="large" formControlName="role">
+        <nz-option [nzValue]="0" nzLabel="Admin"></nz-option>
+        <nz-option [nzValue]="1" nzLabel="Normal"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
   <nz-form-item nz-row class="register-area">
     <nz-form-control>
       <button nz-button nzType="primary" nzSize="large" id="register-btn">
         Register
       </button>
-      Aready have an account <a (click)="redirectToLogin()"> log in! </a>
     </nz-form-control>
   </nz-form-item>
 </form>

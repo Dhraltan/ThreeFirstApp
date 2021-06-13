@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { UserDTO } from '@app/shared/interfaces';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { BufferAttribute } from 'three';
 
 @Injectable({

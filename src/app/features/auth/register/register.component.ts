@@ -48,6 +48,7 @@ export class RegisterComponent implements OnInit {
         ],
         firstName: [null, [Validators.required, CustomValidators.names]],
         lastName: [null, [Validators.required, CustomValidators.names]],
+        role: [null, [Validators.required]]
       },
       { validators: CustomValidators.passwordMatchValidator }
     );
@@ -87,11 +88,8 @@ export class RegisterComponent implements OnInit {
       email: this.registerForm.get('email').value,
       firstName: this.registerForm.get('firstName').value,
       password: this.registerForm.get('password').value,
+      role: this.registerForm.get('role').value
     };
     return registerPayload;
-  }
-
-  redirectToLogin(): void {
-    this.router.navigate([URLS.LOGIN]);
   }
 }

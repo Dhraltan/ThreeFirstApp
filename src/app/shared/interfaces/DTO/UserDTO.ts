@@ -5,4 +5,5 @@ export interface UserDTO {
   firstName: string;
   lastName: string;
   email: string;
+  role: number;
 }
