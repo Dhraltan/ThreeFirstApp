@@ -1,9 +1,19 @@
-#three-container{
-    position: relative;
-    #details-container{
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+#three-container {
+  position: relative;
+
+  #details-container {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  #value-display {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px;
+    font-weight: bold;
+    height: fit-content;
+  }
 }

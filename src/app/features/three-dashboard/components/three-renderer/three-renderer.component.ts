@@ -142,6 +142,7 @@ export class ThreeRendererComponent implements OnInit, OnChanges, OnDestroy {
   setColorBasedOnInput(): void {
     let newColors: THREE.BufferAttribute = null;
     let newPositions: THREE.BufferAttribute = null;
+    
     switch (this.modelColorSelection) {
       case HuhIDs.Original:
         newPositions = this.computeColorsService.getPositions();

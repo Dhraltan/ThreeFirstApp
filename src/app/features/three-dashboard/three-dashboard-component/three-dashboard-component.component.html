@@ -5,4 +5,7 @@
   <div id="details-container">
     <app-three-hud (onSelectedOption)="changeModelColors($event)"></app-three-hud>
   </div>
+
+  <div id="value-display" *ngIf="displayedValue">Measured value: {{displayedValue}}</div>
+  
 </div>
