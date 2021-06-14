@@ -9,16 +9,16 @@
 
 <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
   <li nz-menu-item nzMatchRouter [nzDisabled]="currentUser ? false : true">
-    <a [routerLink]="['/', 'home']"><i nz-icon nzType="home" nzTheme="outline"></i>Home</a>
+    <a [routerLink]="['/','home']"><i nz-icon nzType="home" nzTheme="outline"></i>Home</a>
   </li>
 
   <li nz-submenu nzTitle="3D Representation" nzIcon="caret-down" [nzDisabled]="currentUser ? false : true">
     <ul>
       <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="['/', 'three', 'ply']">NII8</a>
+        <a [routerLink]="['/', 'three', 'nii8']">NII8</a>
       </li>
       <li nz-menu-item nzMatchRouter><a [routerLink]="['/', 'three', 'nii3']">NII3</a></li>
-      <li nz-menu-item nzMatchRouter><a [routerLink]="['/', 'three', 'ghiozdan']">NII1</a></li>
+      <li nz-menu-item nzMatchRouter><a [routerLink]="['/', 'three', 'nii2']">NII2</a></li>
     </ul>
   </li>
 

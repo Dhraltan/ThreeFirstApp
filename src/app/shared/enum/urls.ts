@@ -7,8 +7,9 @@ export enum URLS {
     LOGIN = 'auth/login',
     REGISTER = 'auth/register',
 
-    GHIOZDAN = 'three/ghiozdan',
-    LUCIAN = 'three/lucian'
+    NII8 = 'three/nii8',
+    NII2 = 'three/nii2',
+    NII3 = 'three/nii3'
   }
   
   

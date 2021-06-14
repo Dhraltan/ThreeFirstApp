@@ -11,11 +11,11 @@ const routes: Routes = [
     component: ThreeDashboardComponent,
   },
   {
-    path: 'ply',
+    path: 'nii8',
     component: TestPlyComponent,
   },
   {
-    path: 'ghiozdan',
+    path: 'nii2',
     component: GhiozdanComponent
   },
 ];

@@ -10,9 +10,9 @@ import { Marker } from '@app/shared/interfaces';
 })
 export class RoomSelectorComponent implements OnInit {
   markers: Marker[] = [
-    { isPopoverVisible: false, name: 'nii3', url: URLS.LUCIAN },
-    { isPopoverVisible: false, name: 'nii1', url: URLS.GHIOZDAN },
-    { isPopoverVisible: false, name: 'ni5', url: URLS.GHIOZDAN },
+    { isPopoverVisible: false, name: 'nii3', url: URLS.NII3 },
+    { isPopoverVisible: false, name: 'nii2', url: URLS.NII2 },
+    { isPopoverVisible: false, name: 'nii8', url: URLS.NII8 },
   ];
 
   @Input() displayMarkers: boolean;

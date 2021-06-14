@@ -13,8 +13,8 @@ import { AccountService } from '../services/account.service';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginGuard implements CanActivate {
-  constructor(private accountService: AccountService, private router: Router) {}
+export class AdminGuard implements CanActivate {
+  constructor(private accountService: AccountService, private router:Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -24,7 +24,7 @@ export class LoginGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.accountService.getUser()) return true;
+    if (this.accountService.getUser()?.role == 0) return true;
     this.router.navigateByUrl(URLS.HOMEPAGE)
     return false;
   }
