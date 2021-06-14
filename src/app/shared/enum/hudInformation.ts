@@ -11,6 +11,7 @@ export const hudInformation = [
     title: 'Measured by BME680',
     buttons: [
       { title: 'Temperature', id: 'bme680_temperature_color' },
+      { title: 'Humidity', id: 'bme680_humidity_color' },
       { title: 'Atmospheric pressure', id: 'bme680_atm_color' },
       { title: 'Estimated CO2', id: 'bme680_eco2_color' },
       { title: 'Total concentration of VOC', id: 'bme680_tvoc_color' },

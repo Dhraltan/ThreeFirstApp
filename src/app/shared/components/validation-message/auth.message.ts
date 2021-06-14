@@ -43,4 +43,6 @@ export const auth_messages = {
     { type: 'required', message: 'Last Name is required' },
     { type: 'validateName', message: 'This last name is not valid' },
   ],
+
+  role: [{ type: 'required', message: 'A role is required for the new user' }],
 };

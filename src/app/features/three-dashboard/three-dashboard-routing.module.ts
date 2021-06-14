@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'ghiozdan',
-    component: ThreeDashboardComponent
+    component: GhiozdanComponent
   },
 ];
 

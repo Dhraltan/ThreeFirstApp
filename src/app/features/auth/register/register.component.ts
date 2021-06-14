@@ -75,9 +75,6 @@ export class RegisterComponent implements OnInit {
             nzClass: 'error-notification',
           });
         },
-        () => {
-          this.router.navigate([URLS.LOGIN]);
-        }
       );
     }
   }

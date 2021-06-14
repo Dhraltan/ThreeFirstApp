@@ -40,6 +40,10 @@ export class GhiozdanComponent implements OnInit {
 
   initScene(): void {
     this.scene = new THREE.Scene();
+
+    const axesHelper = new THREE.AxesHelper( 5 );
+    this.scene.add( axesHelper );
+
   }
 
   initAndAddLight(): void {
@@ -66,22 +70,37 @@ export class GhiozdanComponent implements OnInit {
     this.camera = new THREE.PerspectiveCamera(
       75,
       this.container.clientWidth / this.container.clientHeight,
-      0.1,
-      1500
+      0.2,
+      2000
     );
-    this.camera.position.z = 0.1;
+
+    this.camera.position.z = 10;
 
     new OrbitControls(this.camera, this.renderer.domElement);
   }
 
   loadAndAddTexture(): void {
     const loader = new PLYLoader();
-    loader.load('assets/texture/ghiozdan/ghiozdan.ply', (geometry) => {
-      const material = new THREE.PointsMaterial({ size: 0.008 });
+    loader.load('assets/texture/newData/NII2_2.ply', (geometry) => {
+      const material = new THREE.PointsMaterial({ size: 0.015 });
       material.vertexColors = true;
       const mesh = new THREE.Points(geometry, material);
+      // mesh.rotateX(10)
+      mesh.rotateZ(1.3)
+      mesh.rotateY(1.3)
       this.scene.add(mesh);
     });
+
+
+    // loader.load('assets/texture/newData/NII3_2.ply', (geometry) => {
+    //   const material = new THREE.PointsMaterial({ size: 0.008 });
+    //   material.vertexColors = true;
+    //   const mesh = new THREE.Points(geometry, material);
+    //   // mesh.rotateX(10)
+    //   mesh.rotateZ(1.3)
+    //   mesh.rotateY(1.3)
+    //   this.scene.add(mesh);
+    // });
   }
 
   onWindowResize(): void {

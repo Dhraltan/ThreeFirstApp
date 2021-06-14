@@ -3,6 +3,7 @@ export enum HuhIDs {
   Grayscale = 'grayscale_color',
   Vibrations = 'vibrations_color',
   Temperature = 'bme680_temperature_color',
+  Humidity = 'bme680_humidity_color',
   ATM = 'bme680_atm_color',
   BME680ECO2 = 'bme680_eco2_color',
   BME680TVOC = 'bme680_tvoc_color',
