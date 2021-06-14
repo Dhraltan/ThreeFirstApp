@@ -1,0 +1,11 @@
+#canvas-container-renderer {
+  width: 100%;
+  height: calc(100vh - 136px);
+  position: relative;
+}
+
+@media only screen and (max-width: 1400px) and (min-width: 900px) {
+  #canvas-container-renderer {
+    height: calc(100vh - 112px);
+  }
+}

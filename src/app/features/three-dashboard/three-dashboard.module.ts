@@ -8,10 +8,11 @@ import { PlyLucianComponent } from './ply-lucian/ply-lucian.component';
 import { GhiozdanComponent } from './ghiozdan/ghiozdan.component';
 import { ThreeHudComponent } from './components/three-hud/three-hud.component';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { ThreeRendererComponent } from './components/three-renderer/three-renderer.component';
 
 
 @NgModule({
-  declarations: [ThreeDashboardComponent, TestPlyComponent, PlyLucianComponent, GhiozdanComponent, ThreeHudComponent],
+  declarations: [ThreeDashboardComponent, TestPlyComponent, PlyLucianComponent, GhiozdanComponent, ThreeHudComponent, ThreeRendererComponent],
   imports: [SharedModule, ThreeDashboardRoutingModule, NzRadioModule],
 })
 export class ThreeDashboardModule {}
