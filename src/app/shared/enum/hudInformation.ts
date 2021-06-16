@@ -4,8 +4,13 @@ export const hudInformation = [
     buttons: [
       { title: 'Normal color view', id: 'normal_color' },
       { title: 'Grayscale view', id: 'grayscale_color' },
-      { title: 'Vibrations', id: 'vibrations_color' },
     ],
+  },
+  {
+    title: 'Vibration Sensor',
+    buttons: [
+      { title: 'Vibrations', id: 'vibrations_color' },
+    ]
   },
   {
     title: 'Measured by BME680',

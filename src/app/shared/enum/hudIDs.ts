@@ -1,4 +1,4 @@
-export enum HuhIDs {
+export enum HudIDs {
   Original = 'normal_color',
   Grayscale = 'grayscale_color',
   Vibrations = 'vibrations_color',

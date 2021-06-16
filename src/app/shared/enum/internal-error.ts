@@ -10,6 +10,7 @@ export enum InternalError {
 
   // elastic errors
   E_000 = 'Error: E_000. We could not retrieve data from the elastic server.',
+  E_001 = 'Error: E_001. The selected date has no data available.',
 
   // user errors
   U_000 = 'Error: A_000. We could not get your account information.',

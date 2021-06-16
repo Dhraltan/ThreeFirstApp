@@ -17,7 +17,7 @@ export interface HitDTO {
       sIAQ: number;
       sIAQ_acc: number;
     };
-    CCS811: { 'ccs811_eCO2[ppm]': number; 'ccs811_eTVOC[ppb]': number };
+    CCS811: { 'eCO2[ppm]': number; 'eTVOC[ppb]': number };
     ZH03B: {
       'PM1.0[ug/m3]': number;
       'PM2.5[ug/m3]': number;

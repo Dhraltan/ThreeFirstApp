@@ -9,6 +9,16 @@
   background-color: #001529b4;
   color: #fafaff;
 
+  #date-picker-container {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    nz-date-picker {
+      width: stretch;
+      margin: 1rem 8px;
+    }
+  }
+
   i {
     font-size: 1.3rem;
     padding: 8px;
@@ -22,12 +32,13 @@
     }
   }
 
-  #title {
+  .title {
     font-size: 1.1rem;
     text-align: center;
     padding: 0 0.8rem;
     font-weight: bold;
     white-space: nowrap;
+    margin-top: 1rem;
   }
 
   .radio-group-container {
@@ -48,14 +59,14 @@
     }
   }
 
-  ::ng-deep .ant-radio-button-wrapper-checked{
+  ::ng-deep .ant-radio-button-wrapper-checked {
     border-color: #001529b4 !important;
     color: #001529 !important;
     font-weight: bold;
     background: #ffffff86 !important;
   }
 
-  .full-width{
+  .full-width {
     width: 100%;
   }
 
@@ -64,7 +75,7 @@
     color: white;
     border-left: 1px solid white;
 
-    &:hover{
+    &:hover {
       color: #0071b8;
     }
 
@@ -78,6 +89,14 @@
 
     &::before {
       display: none;
+    }
+  }
+
+  ::ng-deep .ant-radio-button-wrapper-disabled {
+    background-color: #ffffffb3 !important;
+
+    &:hover {
+      color: white;
     }
   }
 }

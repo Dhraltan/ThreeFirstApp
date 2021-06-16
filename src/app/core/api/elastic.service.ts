@@ -16,14 +16,24 @@ export class ElasticService {
 
   constructor(private apiService: ApiService) {}
 
-  getIndex(): Promise<IndexDTO> {
-    return this.apiService.get(`${this.resourceUrl}`).pipe(
-      catchError((err: HttpErrorResponse) => {
-        return throwError({
-          status: err.status,
-          message: InternalError.E_000,
-        });
-      })
-    ).toPromise();
+  getIndex(date: Date): Promise<IndexDTO> {
+    const dateString = date.toISOString().split('T')[0]
+    return this.apiService
+      .get(`${this.resourceUrl}`, { date: dateString })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          if (err.status == 404) {
+            return throwError({
+              status: err.status,
+              message: InternalError.E_001,
+            });
+          }
+          return throwError({
+            status: err.status,
+            message: InternalError.E_000,
+          });
+        })
+      )
+      .toPromise();
   }
 }
