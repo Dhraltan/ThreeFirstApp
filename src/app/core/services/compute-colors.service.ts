@@ -32,15 +32,15 @@ export class ComputeColorsService {
     vibrationsColors: { lowLimit: 17, ideal: 20, highLimit: 23 },
     temperatureColors: { lowLimit: 17, ideal: 20, highLimit: 23 },
     humidityColors: { lowLimit: 35, ideal: 45, highLimit: 55 },
-    atmosfericColors: { lowLimit: 980, ideal: 1000, highLimit: 1020 },
-    ECO2Colors: { lowLimit: 250, ideal: 400, highLimit: 1000 },
+    atmosfericColors: { lowLimit: 940, ideal: 960, highLimit: 980 },
+    ECO2Colors: { lowLimit: 250, ideal: 500, highLimit: 1500 },
     bmeTVOCColors: { lowLimit: 0.09, ideal: 0.15, highLimit: 0.31 },
-    iaqColors: { lowLimit: 0, ideal: 10, highLimit: 50 },
-    siaqColors: { lowLimit: 0, ideal: 10, highLimit: 50 },
+    iaqColors: { lowLimit: 0, ideal: 50, highLimit: 150 },
+    siaqColors: { lowLimit: 0, ideal: 50, highLimit: 150 },
     ccsTVOCColors: { lowLimit: 0, ideal: 250, highLimit: 500 },
-    pm1Colors: { lowLimit: 0, ideal: 20, highLimit: 50 },
-    pm25Colors: { lowLimit: 0, ideal: 15, highLimit: 35 },
-    pm10Colors: { lowLimit: 0, ideal: 15, highLimit: 40 },
+    pm1Colors: { lowLimit: 0, ideal: 3, highLimit: 50 },
+    pm25Colors: { lowLimit: 0, ideal: 3, highLimit: 35 },
+    pm10Colors: { lowLimit: 0, ideal: 3, highLimit: 40 },
   };
 
   constructor() {}
@@ -228,7 +228,7 @@ export class ComputeColorsService {
     const yMove = yDistance - this.yLimit[2];
     const zDistance = this.zLimit[2] - this.zLimit[0];
     const zMove = zDistance - this.zLimit[2];
-    const newPositionsNumber = 30;
+    const newPositionsNumber = 25;
     const newPositionsArray: number[] = [];
 
     for (let x = 1; x < newPositionsNumber; x++) {
@@ -378,17 +378,22 @@ export class ComputeColorsService {
 
       const relativeValue = (measuredValued - unitLimits.highLimit)/unitLimits.highLimit
 
-      startColor = [200, relativeValue*127, 0];
-      endColor = [255, relativeValue * 255, 0];
+      startColor = [200, (1-relativeValue)*127, 0];
+      endColor = [255, (1-relativeValue) * 255, 0];
     } else {
-      startColor = [0, 200, 0];
 
       if (measuredValued < unitLimits.ideal) {
-        const relativeValue = (unitLimits.ideal - measuredValued) / unitLimits.ideal;
-        endColor = [0, 255, relativeValue * 200];
+        const maxDistance = unitLimits.ideal - unitLimits.lowLimit;
+        const measuredDistance = unitLimits.ideal - measuredValued;
+        const relativeValue = (maxDistance - measuredDistance) / maxDistance;
+        startColor = [0, 200, (1-relativeValue) * 127];
+        endColor = [0, 255, (1-relativeValue) * 255];
       } else {
-        const relativeValue = (measuredValued - unitLimits.ideal) / unitLimits.ideal;
-        endColor = [ relativeValue * 127, 255,0];
+        const maxDistance = unitLimits.highLimit - unitLimits.ideal;
+        const measuredDistance = unitLimits.highLimit - measuredValued;
+        const relativeValue = (maxDistance - measuredDistance) / maxDistance;
+        startColor = [ relativeValue * 127, 255,0];
+        endColor = [ relativeValue * 255, 255,0];
       }
     }
 

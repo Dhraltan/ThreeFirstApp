@@ -20,8 +20,8 @@ export const hudInformation = [
       { title: 'Atmospheric pressure', id: 'bme680_atm_color' },
       { title: 'Estimated CO2', id: 'bme680_eco2_color' },
       { title: 'Total concentration of VOC', id: 'bme680_tvoc_color' },
-      { title: 'IAQ', id: 'bme680_iaq_color' },
-      { title: 'Subjective IAQ', id: 'bme680_siaq_color' },
+      { title: 'Indoor Air Quality (IAQ)', id: 'bme680_iaq_color' },
+      { title: 'Static IAQ', id: 'bme680_siaq_color' },
     ],
   },
   {
