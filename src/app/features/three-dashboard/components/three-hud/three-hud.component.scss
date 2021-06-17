@@ -15,7 +15,7 @@
 
     nz-date-picker {
       width: stretch;
-      margin: 1rem 8px;
+      margin: 8px;
     }
   }
 
@@ -38,13 +38,17 @@
     padding: 0 0.8rem;
     font-weight: bold;
     white-space: nowrap;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 5px;
+    &:first-child{
+      margin-top: 5px;
+    }
   }
 
   .radio-group-container {
     justify-content: center;
     display: flex;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
 
     .subtitle {
       padding: 5px 10px;
@@ -52,11 +56,13 @@
       font-weight: bold;
     }
 
-    .radio-group {
-      display: inline-grid;
-      padding: 0 10px;
-      width: 100%;
-    }
+  }
+
+  
+  .radio-group {
+    display: grid;
+    padding: 0 10px;
+    width: 100%;
   }
 
   ::ng-deep .ant-radio-button-wrapper-checked {
@@ -68,6 +74,21 @@
 
   .full-width {
     width: 100%;
+  }
+
+  #search-btn{
+    background: #ffffff14;
+    color: white;
+    border-color: white;
+    width: stretch;
+    margin: 8px;
+    &:hover,:focus {
+      border-color: #0071b8;
+    }
+  }
+
+  #data-options-container{
+    padding: 5px 0;
   }
 
   ::ng-deep .ant-radio-button-wrapper {

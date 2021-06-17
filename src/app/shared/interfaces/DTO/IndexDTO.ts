@@ -1,17 +1,21 @@
-import { HitDTO } from './HitDTO';
-
 export interface IndexDTO {
-  took: number;
-  timed_out: boolean;
-  _shards: {
-    total: number;
-    successful: number;
-    skipped: number;
-    failed: number;
+  BME680: {
+    'temperature[*C]': number;
+    'atmospheric_pressure[hPa]': number;
+    IAQ: number;
+    sIAQ: number;
+    'bTVOC[ppm]': number;
+    'eCO2[ppm]': number;
+    'humidity[%]': number;
   };
-  hits: {
-    total: { value: number; relation: string };
-    max_score: number;
-    hits: HitDTO[];
+  CCS811: {
+    'eCO2[ppm]': number;
+    'eTVOC[ppb]': number;
   };
+  ZH03B: {
+    'PM1.0[ug/m3]': number;
+    'PM2.5[ug/m3]': number;
+    'PM10[ug/m3]': number;
+  };
+  'Vibration[ms]': number;
 }

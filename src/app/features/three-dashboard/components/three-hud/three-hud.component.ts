@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { ElasticSearchOptions } from '@app/shared/enum/ElasticSearchOptions';
 import { hudInformation } from '@app/shared/enum/hudInformation';
 
 @Component({
@@ -15,7 +16,11 @@ import { hudInformation } from '@app/shared/enum/hudInformation';
 })
 export class ThreeHudComponent implements OnInit, OnChanges {
   hudInformation = hudInformation;
-  selectedDate: Date = new Date();
+  selectedStartDate: Date = new Date();
+  selectedEndDate: Date = new Date();
+  selectedDateOption: string = '0';
+
+  selectedDateRange;
 
   hideHud: boolean = true;
   selectedUnit: number[] = [1, 0, 0, 0];
@@ -23,7 +28,15 @@ export class ThreeHudComponent implements OnInit, OnChanges {
   @Input() disableButtons: boolean;
 
   @Output() onSelectedOption: EventEmitter<string> = new EventEmitter<string>();
-  @Output() onDateSelection: EventEmitter<Date> = new EventEmitter<Date>();
+  @Output() onDateSelection: EventEmitter<{
+    startDate: Date;
+    endDate: Date;
+    rangeOption: string;
+  }> = new EventEmitter<{
+    startDate: Date;
+    endDate: Date;
+    rangeOption: string;
+  }>();
 
   constructor() {}
 
@@ -51,13 +64,21 @@ export class ThreeHudComponent implements OnInit, OnChanges {
     });
   }
 
-  onDateChange(value: Date) {
-    this.selectedDate = value;
-    this.onDateSelection.emit(value);
+  onDateChange(event?: string) {
+    if (event == ElasticSearchOptions.RangeAverage) {
+      return;
+    }
+    console.log({startDate: this.selectedStartDate,
+      endDate: this.selectedEndDate,
+      rangeOption: this.selectedDateOption,})
+    this.onDateSelection.emit({
+      startDate: this.selectedStartDate,
+      endDate: this.selectedEndDate,
+      rangeOption: this.selectedDateOption,
+    });
   }
 
   disabledDate = (current: Date): boolean => {
-    // Can not select days before today and today
     return current > new Date() || current < new Date('2021-06-11');
   };
 }

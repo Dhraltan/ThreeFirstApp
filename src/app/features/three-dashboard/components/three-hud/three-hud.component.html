@@ -1,45 +1,43 @@
 <div id="hud-container" [ngClass]="{ enlarge: hideHud === false }">
-  <i
-    nz-icon
-    [nzType]="hideHud ? 'right' : 'left'"
-    (click)="changeHudDisplay()"
-    nzTheme="outline"
-  >
+  <i nz-icon [nzType]="hideHud ? 'right' : 'left'" (click)="changeHudDisplay()" nzTheme="outline">
   </i>
 
   <div *ngIf="!hideHud">
-    <div class="title">Select a date option:</div>
-    <div id="date-picker-container">
-      <nz-date-picker
-        [(ngModel)]="selectedDate"
-        [nzSize]="'large'"
-        (ngModelChange)="onDateChange($event)"
-        [nzDisabledDate]="disabledDate"
-      ></nz-date-picker>
+
+    <div class="title">Select data type:</div>
+    <div id="data-options-container">
+      <nz-radio-group [(ngModel)]="selectedDateOption" (ngModelChange)="onDateChange($event)" class="radio-group">
+        <label nz-radio-button nzValue="0">Last measurement</label>
+        <label nz-radio-button nzValue="1">Date range average</label>
+      </nz-radio-group>
+    </div>
+
+    <div *ngIf="selectedDateOption=='1'" class="title">Select a date option:</div>
+    <div *ngIf="selectedDateOption=='1'" id="date-picker-container">
+      <div>
+        <nz-date-picker [(ngModel)]="selectedStartDate" [nzSize]="'large'" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          [nzDisabledDate]="disabledDate"></nz-date-picker>
+      </div>
+      <div>
+        <nz-date-picker [(ngModel)]="selectedEndDate" [nzSize]="'large'" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          [nzDisabledDate]="disabledDate"></nz-date-picker>
+      </div>
+
+      <button nz-button nzType="default" (click)="onDateChange()" id="search-btn">Search</button>
+
+
     </div>
 
     <div class="title">Select a physical quantity:</div>
 
-    <div
-      *ngFor="let hudPart of hudInformation; let index = index"
-      class="radio-group-container"
-    >
+    <div *ngFor="let hudPart of hudInformation; let index = index" class="radio-group-container">
       <div class="full-width">
         <div class="subtitle">{{ hudPart.title }}</div>
-        <nz-radio-group
-          [(ngModel)]="selectedUnit[index]"
-          (ngModelChange)="
+        <nz-radio-group [(ngModel)]="selectedUnit[index]" (ngModelChange)="
             radioButtonSelection(hudPart.buttons[$event - 1].id, index)
-          "
-          [nzDisabled]="index>0?disableButtons:false"
-          class="radio-group"
-        >
-          <label
-            *ngFor="let buton of hudPart.buttons; let i = index"
-            nz-radio-button
-            [nzValue]="i + 1"
-            >{{ buton.title }}</label
-          >
+          " [nzDisabled]="index>0?disableButtons:false" class="radio-group">
+          <label *ngFor="let buton of hudPart.buttons; let i = index" nz-radio-button
+            [nzValue]="i + 1">{{ buton.title }}</label>
         </nz-radio-group>
       </div>
     </div>

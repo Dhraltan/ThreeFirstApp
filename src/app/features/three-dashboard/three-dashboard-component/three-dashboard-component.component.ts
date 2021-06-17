@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ElasticService } from '@app/core/api/elastic.service';
 import { ComputeColorsService } from '@app/core/services/compute-colors.service';
+import { ElasticSearchOptions } from '@app/shared/enum/ElasticSearchOptions';
 import { HudIDs as HudIDs } from '@app/shared/enum/hudIDs';
 import { IndexDTO } from '@app/shared/interfaces/DTO/IndexDTO';
 import { IndexData } from '@app/shared/interfaces/View-Model/IndexData';
@@ -28,8 +29,7 @@ export class ThreeDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.selectModel();
-    this.getIndexData(new Date())
-    console.log(this.indexData)
+    this.getIndexData(new Date(), null, ElasticSearchOptions.LastMeasurement);
   }
 
   selectModel(): void {
@@ -45,21 +45,24 @@ export class ThreeDashboardComponent implements OnInit {
     }
   }
 
-  getIndexData(date: Date) {
+  getIndexData(startDate: Date, endDate: Date, option: string) {
     this.computeColorsService.clearColorData();
-    return this.elasticService.getIndex(date).then((indexContent: IndexDTO)=>{
-      this.indexData = indexContent.hits.hits[0]._source
-      this.disableButtons = false;
-    this.changeDisplayedValue(this.modelColorSelection);
-    }).catch((err) => {
-      this.disableButtons = true;
-      console.error(err);
-      this.changeModelColors(HudIDs.Original);
-      this.computeColorsService.clearColorData();
-      this.notification.error('Failed', err.message, {
-        nzClass: 'error-notification',
+    return this.elasticService
+      .getIndex(startDate, endDate, option)
+      .then((indexContent: IndexDTO) => {
+        this.indexData = indexContent;
+        this.disableButtons = false;
+        this.changeDisplayedValue(this.modelColorSelection);
+      })
+      .catch((err) => {
+        this.disableButtons = true;
+        console.error(err);
+        this.changeModelColors(HudIDs.Original);
+        this.computeColorsService.clearColorData();
+        this.notification.error('Failed', err.message, {
+          nzClass: 'error-notification',
+        });
       });
-    });
   }
 
   changeModelColors(event: string) {
@@ -67,8 +70,8 @@ export class ThreeDashboardComponent implements OnInit {
     this.changeDisplayedValue(event);
   }
 
-  changeIndexDate(date) {
-     this.getIndexData(date)
+  changeIndexDate({ startDate, endDate, rangeOption }) {
+    this.getIndexData(startDate, endDate, rangeOption);
   }
 
   changeDisplayedValue(id: string) {
@@ -99,12 +102,10 @@ export class ThreeDashboardComponent implements OnInit {
         this.displayedValue = this.indexData.BME680.sIAQ + '';
         break;
       case HudIDs.CCS811ECO2:
-        this.displayedValue =
-          this.indexData.CCS811['eCO2[ppm]'] + ' ppm';
+        this.displayedValue = this.indexData.CCS811['eCO2[ppm]'] + ' ppm';
         break;
       case HudIDs.CCS811TVOC:
-        this.displayedValue =
-          this.indexData.CCS811['eTVOC[ppb]'] + ' ppb';
+        this.displayedValue = this.indexData.CCS811['eTVOC[ppb]'] + ' ppb';
         break;
       case HudIDs.PM1:
         this.displayedValue = this.indexData.ZH03B['PM1.0[ug/m3]'] + ' ug/m3';

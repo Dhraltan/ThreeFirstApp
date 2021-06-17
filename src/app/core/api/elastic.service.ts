@@ -7,6 +7,7 @@ import { ApiService } from './api.service';
 import { InternalError } from '@app/shared/enum';
 import { ContactPayload } from '@app/shared/interfaces/Payload/ContactPayload';
 import { IndexDTO } from '@app/shared/interfaces/DTO/IndexDTO';
+import { ElasticSearchOptions } from '@app/shared/enum/ElasticSearchOptions';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,17 @@ export class ElasticService {
 
   constructor(private apiService: ApiService) {}
 
-  getIndex(date: Date): Promise<IndexDTO> {
-    const dateString = date.toISOString().split('T')[0]
+  getIndex(startDate: Date, endDate: Date, option: string): Promise<IndexDTO> {
+    if(option == ElasticSearchOptions.LastMeasurement){
+      startDate = null;
+      endDate = null;
+    }
     return this.apiService
-      .get(`${this.resourceUrl}`, { date: dateString })
+      .post(`${this.resourceUrl}`, {
+        startDate: startDate,
+        endDate: endDate,
+        option: option,
+      })
       .pipe(
         catchError((err: HttpErrorResponse) => {
           if (err.status == 404) {
