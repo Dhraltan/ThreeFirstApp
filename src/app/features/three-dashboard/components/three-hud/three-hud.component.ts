@@ -68,9 +68,6 @@ export class ThreeHudComponent implements OnInit, OnChanges {
     if (event == ElasticSearchOptions.RangeAverage) {
       return;
     }
-    console.log({startDate: this.selectedStartDate,
-      endDate: this.selectedEndDate,
-      rangeOption: this.selectedDateOption,})
     this.onDateSelection.emit({
       startDate: this.selectedStartDate,
       endDate: this.selectedEndDate,

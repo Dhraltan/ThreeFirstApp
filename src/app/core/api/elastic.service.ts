@@ -44,4 +44,9 @@ export class ElasticService {
       )
       .toPromise();
   }
+
+
+  getIndexStatus(){
+    
+  }
 }

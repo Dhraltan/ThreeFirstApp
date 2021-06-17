@@ -7,6 +7,8 @@ import { HudIDs as HudIDs } from '@app/shared/enum/hudIDs';
 import { IndexDTO } from '@app/shared/interfaces/DTO/IndexDTO';
 import { IndexData } from '@app/shared/interfaces/View-Model/IndexData';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { interval } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-three-dashboard-component',
@@ -20,6 +22,12 @@ export class ThreeDashboardComponent implements OnInit {
   indexData: IndexData;
   displayedValue: string;
   disableButtons: boolean = true;
+
+  elasticStartDate:Date = null;
+  elasticEndDate: Date = null;
+  elasticOption: string = ElasticSearchOptions.LastMeasurement
+
+
   constructor(
     private router: Router,
     private elasticService: ElasticService,
@@ -30,6 +38,22 @@ export class ThreeDashboardComponent implements OnInit {
   ngOnInit() {
     this.selectModel();
     this.getIndexData(new Date(), null, ElasticSearchOptions.LastMeasurement);
+
+    interval(60000)
+      .pipe(
+        startWith(0),
+        map(() => {
+          this.getIndexData(
+            this.elasticStartDate,
+            this.elasticEndDate,
+            this.elasticOption
+          );
+        })
+      )
+      .subscribe(
+        (res) => {},
+        (error) => {}
+      );
   }
 
   selectModel(): void {
@@ -71,6 +95,9 @@ export class ThreeDashboardComponent implements OnInit {
   }
 
   changeIndexDate({ startDate, endDate, rangeOption }) {
+    this.elasticStartDate = startDate
+    this.elasticEndDate = endDate
+    this.elasticOption = rangeOption
     this.getIndexData(startDate, endDate, rangeOption);
   }
 
