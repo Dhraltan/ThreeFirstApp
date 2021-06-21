@@ -73,7 +73,7 @@ export class ThreeRendererComponent implements OnInit, OnChanges, OnDestroy {
       antialias: true,
       canvas: this.canvas,
     });
-    // this.renderer.outputEncoding = THREE.sRGBEncoding;
+    
     this.renderer.setSize(
       this.container.clientWidth,
       this.container.clientHeight

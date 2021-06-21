@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ElasticService } from '@app/core/api/elastic.service';
 import { ComputeColorsService } from '@app/core/services/compute-colors.service';
@@ -7,7 +7,7 @@ import { HudIDs as HudIDs } from '@app/shared/enum/hudIDs';
 import { IndexDTO } from '@app/shared/interfaces/DTO/IndexDTO';
 import { IndexData } from '@app/shared/interfaces/View-Model/IndexData';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
   templateUrl: './three-dashboard-component.component.html',
   styleUrls: ['./three-dashboard-component.component.scss'],
 })
-export class ThreeDashboardComponent implements OnInit {
+export class ThreeDashboardComponent implements OnInit, OnDestroy {
   selectedIndex = 0;
   measuredValue: number;
   modelColorSelection: string;
@@ -23,10 +23,11 @@ export class ThreeDashboardComponent implements OnInit {
   displayedValue: string;
   disableButtons: boolean = true;
 
-  elasticStartDate:Date = null;
+  elasticStartDate: Date = null;
   elasticEndDate: Date = null;
-  elasticOption: string = ElasticSearchOptions.LastMeasurement
+  elasticOption: string = ElasticSearchOptions.LastMeasurement;
 
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -39,21 +40,29 @@ export class ThreeDashboardComponent implements OnInit {
     this.selectModel();
     this.getIndexData(new Date(), null, ElasticSearchOptions.LastMeasurement);
 
-    interval(60000)
-      .pipe(
-        startWith(0),
-        map(() => {
-          this.getIndexData(
-            this.elasticStartDate,
-            this.elasticEndDate,
-            this.elasticOption
-          );
-        })
-      )
-      .subscribe(
-        (res) => {},
-        (error) => {}
-      );
+    this.subscriptions.add(
+      interval(60000)
+        .pipe(
+          startWith(0),
+          map(() => {
+            if (this.elasticOption == ElasticSearchOptions.LastMeasurement) {
+              this.getIndexData(
+                this.elasticStartDate,
+                this.elasticEndDate,
+                this.elasticOption
+              );
+            }
+          })
+        )
+        .subscribe(
+          (res) => {},
+          (error) => {}
+        )
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   selectModel(): void {
@@ -95,9 +104,9 @@ export class ThreeDashboardComponent implements OnInit {
   }
 
   changeIndexDate({ startDate, endDate, rangeOption }) {
-    this.elasticStartDate = startDate
-    this.elasticEndDate = endDate
-    this.elasticOption = rangeOption
+    this.elasticStartDate = startDate;
+    this.elasticEndDate = endDate;
+    this.elasticOption = rangeOption;
     this.getIndexData(startDate, endDate, rangeOption);
   }
 

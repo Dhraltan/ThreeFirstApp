@@ -65,4 +65,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   goToLogIn() {
     this.router.navigateByUrl(URLS.LOGIN);
   }
+
+  goToChangePassword(){
+    this.router.navigateByUrl(URLS.CHANGE_PASSWORD);
+  }
 }

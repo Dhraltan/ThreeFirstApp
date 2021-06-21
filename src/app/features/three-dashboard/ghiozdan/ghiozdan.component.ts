@@ -59,7 +59,7 @@ export class GhiozdanComponent implements OnInit {
       antialias: true,
       canvas: this.canvas,
     });
-    this.renderer.outputEncoding = THREE.sRGBEncoding;
+    // this.renderer.outputEncoding = THREE.sRGBEncoding;
     this.renderer.setSize(
       this.container.clientWidth,
       this.container.clientHeight
@@ -81,26 +81,32 @@ export class GhiozdanComponent implements OnInit {
 
   loadAndAddTexture(): void {
     const loader = new PLYLoader();
-    loader.load('assets/texture/newData/NII2_2.ply', (geometry) => {
-      const material = new THREE.PointsMaterial({ size: 0.015 });
+    loader.load('assets/texture/newData/DenseNormal.ply', (geometry) => {
+      const material = new THREE.PointsMaterial({size:0.2});
+      geometry.computeVertexNormals()
+      geometry.normalizeNormals()
       material.vertexColors = true;
       const mesh = new THREE.Points(geometry, material);
-      // mesh.rotateX(10)
-      mesh.rotateZ(1.3)
-      mesh.rotateY(1.3)
+      mesh.rotateX(4.51239)
       this.scene.add(mesh);
+      console.log(mesh)
+      console.log(geometry)
     });
 
 
-    // loader.load('assets/texture/newData/NII3_2.ply', (geometry) => {
-    //   const material = new THREE.PointsMaterial({ size: 0.008 });
-    //   material.vertexColors = true;
-    //   const mesh = new THREE.Points(geometry, material);
-    //   // mesh.rotateX(10)
-    //   mesh.rotateZ(1.3)
-    //   mesh.rotateY(1.3)
-    //   this.scene.add(mesh);
-    // });
+    loader.load('assets/texture/newData/Usa3.ply', (geometry) => {
+      const material = new THREE.PointsMaterial({ size: 0.15 });
+      geometry.computeVertexNormals()
+      geometry.normalizeNormals()
+      material.vertexColors = true;
+      const mesh = new THREE.Points(geometry, material);
+      mesh.rotateX(4.81239)
+      mesh.rotateZ(Math.PI)
+      mesh.translateX(13)
+      mesh.translateY(30)
+      mesh.translateZ(2)
+      this.scene.add(mesh);
+    });
   }
 
   onWindowResize(): void {

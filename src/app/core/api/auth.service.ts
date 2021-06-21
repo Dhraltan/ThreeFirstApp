@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { InternalError } from '@app/shared/enum';
 import { LoginPayload, RegisterPayload, UserDTO } from '@app/shared/interfaces';
+import { ChangePasswordPayload } from '@app/shared/interfaces/Payload/ChangePasswordPayload';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,17 @@ export class AuthService {
         return throwError({
           status: err.status,
           message: InternalError.A_000,
+        });
+      })
+    );
+  }
+
+  changePassword(credentials: ChangePasswordPayload): Observable<void> {
+    return this.apiService.post(`${this.resourceUrl}/changePassword`, credentials).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError({
+          status: err.status,
+          message: InternalError.A_003,
         });
       })
     );

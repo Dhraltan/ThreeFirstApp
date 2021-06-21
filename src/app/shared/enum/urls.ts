@@ -6,6 +6,7 @@ export enum URLS {
 
     LOGIN = 'auth/login',
     REGISTER = 'auth/register',
+    CHANGE_PASSWORD = 'auth/change-password',
 
     NII8 = 'three/nii8',
     NII2 = 'three/nii2',

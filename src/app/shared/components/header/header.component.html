@@ -4,6 +4,7 @@
 <div id="auth-btns">
   <a *ngIf="currentUser?.role == 0" (click)="goToRegister()" id="log-out-btn"> Register User </a>
   <a *ngIf="!currentUser" (click)="goToLogIn()" id="log-out-btn"> Log in </a>
+  <a *ngIf="currentUser" (click)="goToChangePassword()" id="log-out-btn"> Change Password </a>
   <a *ngIf="currentUser" (click)="logOut()" id="log-out-btn"> Log out </a>
 </div>
 
