@@ -155,55 +155,55 @@ export class PlyLucianComponent implements OnInit, OnChanges, OnDestroy {
         newColors = this.computeColorsService.getGrayscaleColors();
         break;
       case HudIDs.Vibrations:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getVibrationsColor(this.indexData['Vibration[ms]']);
         break;
       case HudIDs.Temperature:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getTemperatureColors(this.indexData.BME680['temperature[*C]']);
         break;
       case HudIDs.Humidity:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getHumidityColors(this.indexData.BME680['humidity[%]']);
         break;
       case HudIDs.ATM:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getAtmosfericColors(this.indexData.BME680['atmospheric_pressure[hPa]']);
         break;
       case HudIDs.BME680ECO2:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getBMEECO2Colors(this.indexData.BME680['eCO2[ppm]']);
         break;
       case HudIDs.BME680TVOC:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getBMETVOCColors(this.indexData.BME680['bTVOC[ppm]']);
         break;
       case HudIDs.IAQ:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getIAQColors(this.indexData.BME680.IAQ);
         break;
       case HudIDs.SIAQ:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getSIAQColors(this.indexData.BME680.sIAQ);
         break;
       case HudIDs.CCS811ECO2:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getCCSECO2Colors(this.indexData.CCS811['eCO2[ppm]']);
         break;
       case HudIDs.CCS811TVOC:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getCCSTVOCColors(this.indexData.CCS811['eTVOC[ppb]']);
         break;
       case HudIDs.PM1:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getPM1Colors(this.indexData.ZH03B['PM1.0[ug/m3]']);
         break;
       case HudIDs.PM25:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getPM25Colors(this.indexData.ZH03B['PM2.5[ug/m3]']);
         break;
       case HudIDs.PM10:
-        newPositions = this.computeColorsService.getComposedPositions();
+        newPositions = this.computeColorsService.getComposedPositions(23);
         newColors = this.computeColorsService.getPM10Colors(this.indexData.ZH03B['PM10[ug/m3]']);
         break;
       default:

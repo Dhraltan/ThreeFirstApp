@@ -1,11 +1,14 @@
 <div id="three-container">
-  <app-three-renderer [modelColorSelection]="modelColorSelection" [indexData]="indexData"></app-three-renderer>
-  
+  <app-three-renderer *ngIf="selectedIndex==1" [modelColorSelection]="modelColorSelection" [indexData]="indexData">
+  </app-three-renderer>
+  <app-nii2 *ngIf="selectedIndex==2" [modelColorSelection]="modelColorSelection" [indexData]="indexData"></app-nii2>
+  <app-nii3 *ngIf="selectedIndex==3" [modelColorSelection]="modelColorSelection" [indexData]="indexData"></app-nii3>
 
   <div id="details-container">
-    <app-three-hud (onSelectedOption)="changeModelColors($event)" (onDateSelection)="changeIndexDate($event)"  [disableButtons]="disableButtons"></app-three-hud>
+    <app-three-hud (onSelectedOption)="changeModelColors($event)" (onDateSelection)="changeIndexDate($event)"
+      [disableButtons]="disableButtons"></app-three-hud>
   </div>
 
   <div id="value-display" *ngIf="displayedValue">Measured value: {{displayedValue}}</div>
-  
+
 </div>

@@ -67,11 +67,14 @@ export class ThreeDashboardComponent implements OnInit, OnDestroy {
 
   selectModel(): void {
     switch (this.router.url) {
-      case '/three/nii3':
+      case '/three/nii3v1':
         this.selectedIndex = 1;
         break;
-      case '/three/ghiozdan':
+      case '/three/nii2':
         this.selectedIndex = 2;
+        break;
+        case '/three/nii3':
+        this.selectedIndex = 3;
         break;
       default:
         break;
