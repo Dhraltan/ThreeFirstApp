@@ -108,14 +108,10 @@ export class Nii2Component implements OnInit {
     );
     this.scene.background = spaceTexture;
 
-    // let counter = 0;
-
     const loader = new PLYLoader();
     loader
       .loadAsync('assets/texture/newData/Nii2dense.ply')
       .then((geometry) => {
-        // geometry.computeVertexNormals();
-        // geometry.normalizeNormals();
         geometry.rotateX(4.51239);
         geometry.translate(1, -9, -10);
         console.log(geometry);
@@ -128,60 +124,21 @@ export class Nii2Component implements OnInit {
         } else {
           this.geometryMerged = geometry;
         }
-        // console.log('gappe');
-        // counter++;
       })
       .finally(() => {
-        // if (counter == 2) {
-          this.computeColorsService.setOriginalColors(
-            this.geometryMerged.attributes.color as BufferAttribute
-          );
-          this.computeColorsService.setPositions(
-            this.geometryMerged.attributes.position as BufferAttribute
-          );
+        this.computeColorsService.setOriginalColors(
+          this.geometryMerged.attributes.color as BufferAttribute
+        );
+        this.computeColorsService.setPositions(
+          this.geometryMerged.attributes.position as BufferAttribute
+        );
 
-          const material = new THREE.PointsMaterial({ size: 0.1 });
-          material.vertexColors = true;
+        const material = new THREE.PointsMaterial({ size: 0.1 });
+        material.vertexColors = true;
 
-          this.mesh = new THREE.Points(this.geometryMerged, material);
-          this.scene.add(this.mesh);
-        // }
+        this.mesh = new THREE.Points(this.geometryMerged, material);
+        this.scene.add(this.mesh);
       });
-
-    // loader
-    //   .loadAsync('assets/texture/newData/Usa3.ply')
-    //   .then((geometry) => {
-    //     geometry.computeVertexNormals();
-    //     geometry.normalizeNormals();
-    //     geometry.rotateX(4.61239);
-    //     geometry.rotateY(Math.PI);
-    //     geometry.translate(-10, -9, 16);
-    //     if (this.geometryMerged) {
-    //       this.geometryMerged = BufferGeometryUtils.mergeBufferGeometries([
-    //         this.geometryMerged,
-    //         geometry,
-    //       ]);
-    //     } else {
-    //       this.geometryMerged = geometry;
-    //     }
-    //     counter++;
-    //   })
-    //   .finally(() => {
-    //     if (counter == 2) {
-    //       this.computeColorsService.setOriginalColors(
-    //         this.geometryMerged.attributes.color as BufferAttribute
-    //       );
-    //       this.computeColorsService.setPositions(
-    //         this.geometryMerged.attributes.position as BufferAttribute
-    //       );
-
-    //       const material = new THREE.PointsMaterial({ size: 0.2 });
-    //       material.vertexColors = true;
-
-    //       this.mesh = new THREE.Points(this.geometryMerged, material);
-    //       this.scene.add(this.mesh);
-    //     }
-    //   });
   }
 
   setColorBasedOnInput(): void {
@@ -200,79 +157,92 @@ export class Nii2Component implements OnInit {
       case HudIDs.Vibrations:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getVibrationsColor(
-          this.indexData['Vibration[ms]'],10
+          this.indexData['Vibration[ms]'],
+          10
         );
         break;
       case HudIDs.Temperature:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getTemperatureColors(
-          this.indexData.BME680['temperature[*C]'],22
+          this.indexData.BME680['temperature[*C]'],
+          22
         );
         break;
       case HudIDs.Humidity:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getHumidityColors(
-          this.indexData.BME680['humidity[%]'],10
+          this.indexData.BME680['humidity[%]'],
+          10
         );
         break;
       case HudIDs.ATM:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getAtmosfericColors(
-          this.indexData.BME680['atmospheric_pressure[hPa]'],10
+          this.indexData.BME680['atmospheric_pressure[hPa]'],
+          10
         );
         break;
       case HudIDs.BME680ECO2:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getBMEECO2Colors(
-          this.indexData.BME680['eCO2[ppm]'],10
+          this.indexData.BME680['eCO2[ppm]'],
+          10
         );
         break;
       case HudIDs.BME680TVOC:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getBMETVOCColors(
-          this.indexData.BME680['bTVOC[ppm]'],10
+          this.indexData.BME680['bTVOC[ppm]'],
+          10
         );
         break;
       case HudIDs.IAQ:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getIAQColors(
-          this.indexData.BME680.IAQ,10
+          this.indexData.BME680.IAQ,
+          10
         );
         break;
       case HudIDs.SIAQ:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getSIAQColors(
-          this.indexData.BME680.sIAQ,10
+          this.indexData.BME680.sIAQ,
+          10
         );
         break;
       case HudIDs.CCS811ECO2:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getCCSECO2Colors(
-          this.indexData.CCS811['eCO2[ppm]'],10
+          this.indexData.CCS811['eCO2[ppm]'],
+          10
         );
         break;
       case HudIDs.CCS811TVOC:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getCCSTVOCColors(
-          this.indexData.CCS811['eTVOC[ppb]'],10
+          this.indexData.CCS811['eTVOC[ppb]'],
+          10
         );
         break;
       case HudIDs.PM1:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getPM1Colors(
-          this.indexData.ZH03B['PM1.0[ug/m3]'],10
+          this.indexData.ZH03B['PM1.0[ug/m3]'],
+          10
         );
         break;
       case HudIDs.PM25:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getPM25Colors(
-          this.indexData.ZH03B['PM2.5[ug/m3]'],10
+          this.indexData.ZH03B['PM2.5[ug/m3]'],
+          10
         );
         break;
       case HudIDs.PM10:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getPM10Colors(
-          this.indexData.ZH03B['PM10[ug/m3]'],10
+          this.indexData.ZH03B['PM10[ug/m3]'],
+          10
         );
         break;
       default:
