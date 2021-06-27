@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { unitLimits } from '@app/shared/enum/unitLimits';
 import { BufferAttribute } from 'three';
 
 @Injectable({
@@ -34,20 +35,7 @@ export class ComputeColorsService {
     zLimit: [0, 0, 0],
   };
 
-  private unitLimits = {
-    vibrationsColors: { lowLimit: 17, ideal: 20, highLimit: 23 },
-    temperatureColors: { lowLimit: 17, ideal: 20, highLimit: 23 },
-    humidityColors: { lowLimit: 35, ideal: 45, highLimit: 55 },
-    atmosfericColors: { lowLimit: 940, ideal: 960, highLimit: 980 },
-    ECO2Colors: { lowLimit: 250, ideal: 500, highLimit: 1500 },
-    bmeTVOCColors: { lowLimit: 0.09, ideal: 0.15, highLimit: 0.31 },
-    iaqColors: { lowLimit: 0, ideal: 50, highLimit: 150 },
-    siaqColors: { lowLimit: 0, ideal: 50, highLimit: 150 },
-    ccsTVOCColors: { lowLimit: 0, ideal: 250, highLimit: 500 },
-    pm1Colors: { lowLimit: 0, ideal: 3, highLimit: 50 },
-    pm25Colors: { lowLimit: 0, ideal: 3, highLimit: 35 },
-    pm10Colors: { lowLimit: 0, ideal: 3, highLimit: 40 },
-  };
+  private unitLimits = unitLimits;
 
   constructor() {}
 
@@ -65,14 +53,14 @@ export class ComputeColorsService {
 
   getComposedPositions(
     nrOfPoints: number,
-    extraPoints?
+    extraPoints?,
+    nrOfExtraPoints?
   ): THREE.BufferAttribute {
-    if (!this.composedPositions) {
-      this.composedPositions = this.computeComposedPositions(
-        nrOfPoints,
-        extraPoints
-      );
-    }
+    this.composedPositions = this.computeComposedPositions(
+      nrOfPoints,
+      extraPoints,
+      nrOfExtraPoints
+    );
     return this.composedPositions.clone();
   }
 
@@ -272,14 +260,18 @@ export class ComputeColorsService {
     this.zLimit = zLimit;
   }
 
-  private computeComposedPositions(numberOfPoints, extraPoints?) {
+  private computeComposedPositions(
+    numberOfPoints,
+    extraPoints?,
+    numberOfExtraPoints?
+  ) {
     const xDistance = this.xLimit[2] - this.xLimit[0];
     const xMove = xDistance - this.xLimit[2];
     const yDistance = this.yLimit[2] - this.yLimit[0];
     const yMove = yDistance - this.yLimit[2];
     const zDistance = this.zLimit[2] - this.zLimit[0];
     const zMove = zDistance - this.zLimit[2];
-    const newPositionsNumber = numberOfPoints;
+    let newPositionsNumber = numberOfPoints;
     const newPositionsArray: number[] = [];
 
     for (let x = 1; x < newPositionsNumber; x++) {
@@ -293,6 +285,9 @@ export class ComputeColorsService {
       }
     }
     if (extraPoints) {
+      if(numberOfExtraPoints){
+        newPositionsNumber = numberOfExtraPoints;
+      }
       this.extraPoints = extraPoints;
       const xExtraDistance = extraPoints.xLimit[2] - extraPoints.xLimit[0];
       const xExtraMove = xExtraDistance - extraPoints.xLimit[2];
@@ -444,7 +439,6 @@ export class ComputeColorsService {
       }
 
       if (this.extraPoints) {
-        
         if (
           x <= this.extraPoints.xLimit[2] &&
           x >= this.extraPoints.xLimit[0] &&
