@@ -17,7 +17,7 @@ export class ElasticService {
 
   constructor(private apiService: ApiService) {}
 
-  getIndex(startDate: Date, endDate: Date, option: string): Promise<IndexDTO> {
+  getIndex(startDate: Date, endDate: Date, option: string, room: string): Promise<IndexDTO> {
     if(option == ElasticSearchOptions.LastMeasurement){
       startDate = null;
       endDate = null;
@@ -27,6 +27,7 @@ export class ElasticService {
         startDate: startDate,
         endDate: endDate,
         option: option,
+        room: room
       })
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -43,10 +44,5 @@ export class ElasticService {
         })
       )
       .toPromise();
-  }
-
-
-  getIndexStatus(){
-    
   }
 }

@@ -30,7 +30,7 @@ export class Nii2Component implements OnInit {
   pause = false;
 
   @Input() modelColorSelection: string;
-  @Input() indexData: IndexData;
+  @Input() indexData: IndexData[];
 
   constructor(private computeColorsService: ComputeColorsService) {}
 
@@ -114,7 +114,6 @@ export class Nii2Component implements OnInit {
       .then((geometry) => {
         geometry.rotateX(4.51239);
         geometry.translate(1, -9, -10);
-        console.log(geometry);
 
         if (this.geometryMerged) {
           this.geometryMerged = BufferGeometryUtils.mergeBufferGeometries([
@@ -157,91 +156,91 @@ export class Nii2Component implements OnInit {
       case HudIDs.Vibrations:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getVibrationsColor(
-          this.indexData['Vibration[ms]'],
+          this.indexData[0]['Vibration[ms]'],
           10
         );
         break;
       case HudIDs.Temperature:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getTemperatureColors(
-          this.indexData.BME680['temperature[*C]'],
+          this.indexData[0].BME680['temperature[*C]'],
           22
         );
         break;
       case HudIDs.Humidity:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getHumidityColors(
-          this.indexData.BME680['humidity[%]'],
+          this.indexData[0].BME680['humidity[%]'],
           10
         );
         break;
       case HudIDs.ATM:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getAtmosfericColors(
-          this.indexData.BME680['atmospheric_pressure[hPa]'],
+          this.indexData[0].BME680['atmospheric_pressure[hPa]'],
           10
         );
         break;
       case HudIDs.BME680ECO2:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getBMEECO2Colors(
-          this.indexData.BME680['eCO2[ppm]'],
+          this.indexData[0].BME680['eCO2[ppm]'],
           10
         );
         break;
       case HudIDs.BME680TVOC:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getBMETVOCColors(
-          this.indexData.BME680['bTVOC[ppm]'],
+          this.indexData[0].BME680['bTVOC[ppm]'],
           10
         );
         break;
       case HudIDs.IAQ:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getIAQColors(
-          this.indexData.BME680.IAQ,
+          this.indexData[0].BME680.IAQ,
           10
         );
         break;
       case HudIDs.SIAQ:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getSIAQColors(
-          this.indexData.BME680.sIAQ,
+          this.indexData[0].BME680.sIAQ,
           10
         );
         break;
       case HudIDs.CCS811ECO2:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getCCSECO2Colors(
-          this.indexData.CCS811['eCO2[ppm]'],
+          this.indexData[0].CCS811['eCO2[ppm]'],
           10
         );
         break;
       case HudIDs.CCS811TVOC:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getCCSTVOCColors(
-          this.indexData.CCS811['eTVOC[ppb]'],
+          this.indexData[0].CCS811['eTVOC[ppb]'],
           10
         );
         break;
       case HudIDs.PM1:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getPM1Colors(
-          this.indexData.ZH03B['PM1.0[ug/m3]'],
+          this.indexData[0].ZH03B['PM1.0[ug/m3]'],
           10
         );
         break;
       case HudIDs.PM25:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getPM25Colors(
-          this.indexData.ZH03B['PM2.5[ug/m3]'],
+          this.indexData[0].ZH03B['PM2.5[ug/m3]'],
           10
         );
         break;
       case HudIDs.PM10:
         newPositions = this.computeColorsService.getComposedPositions(18);
         newColors = this.computeColorsService.getPM10Colors(
-          this.indexData.ZH03B['PM10[ug/m3]'],
+          this.indexData[0].ZH03B['PM10[ug/m3]'],
           10
         );
         break;

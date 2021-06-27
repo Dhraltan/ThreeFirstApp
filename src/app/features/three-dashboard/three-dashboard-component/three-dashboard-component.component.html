@@ -9,6 +9,7 @@
       [disableButtons]="disableButtons"></app-three-hud>
   </div>
 
-  <div id="value-display" *ngIf="displayedValue">Measured value: {{displayedValue}}</div>
+  <div id="value-display" >
+    <p *ngFor="let dsv of displayedValue">Measured value: {{dsv}}</p> </div>
 
 </div>
